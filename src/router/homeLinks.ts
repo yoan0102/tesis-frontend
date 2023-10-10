@@ -10,7 +10,7 @@ export const mainMenu: {
     },
     {
       name: 'Buscar',
-      icon: 'mdi:search',
+      icon: 'mdi-search',
       router: '/search'
     }
   ],

@@ -3,17 +3,17 @@ import { Icon } from '@iconify/vue'
 </script>
 
 <template>
-  <div class="media-player has-background-black">
+  <div class="media-player">
     <div class="media-player--wrapper">
       <!--Zona del artista-->
       <div class="artist player-center">
         <div class="artist-inside">
-          <!-- <img [src]="mockCover?.cover" alt="" class="cover" /> -->
-          <div class="track-info has-text-grey-light">
+          <img src="@/assets/cover.jpeg" alt="" class="cover" />
+          <div class="track-info">
             <h3 class="track-title">{{ 'Mas Rica que Ayer' }}</h3>
             <h5 class="track-title sub-title">{{ ' Las Leyendas nunca mueren' }}</h5>
           </div>
-          <div class="track-like has-text-grey-light">
+          <div class="track-like">
             <button class="btn-like">
               <Icon icon="mdi:heart-outline"></Icon>
             </button>
@@ -21,7 +21,7 @@ import { Icon } from '@iconify/vue'
         </div>
       </div>
       <!--Zona del reproductor-->
-      <div class="player-controls player-center has-text-grey-light">
+      <div class="player-controls player-center">
         <div class="player-controls-inside">
           <div class="buttons-media">
             <button class="arrow btn">
@@ -36,8 +36,8 @@ import { Icon } from '@iconify/vue'
           </div>
           <div class="media-linetime">
             <div class="time">00</div>
-            <span class="time-progress has-background-grey">
-              <span class="time-progress-live has-background-grey-darker"> </span>
+            <span class="time-progress">
+              <span class="time-progress-live"> </span>
             </span>
             <div class="time">00</div>
           </div>
@@ -65,127 +65,137 @@ import { Icon } from '@iconify/vue'
 
 <style scoped lang="scss">
 .media-player {
-  background-color: var(--color-5);
+  background-color: var(--white);
   position: fixed;
   bottom: 0;
   width: 100%;
   z-index: 2;
   height: 85px;
-  border-top: solid 1px var(--color-2);
-  box-shadow: 0px -15px 15px 7px #0000002e;
+  border-top: solid 1px var(--text);
+  /* box-shadow: 0px -1px 1px 2px #0000002e; */
+
+  .media-player--wrapper {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    height: 100%;
+    padding: 0;
+
+    .player-center {
+      display: flex;
+      align-content: center;
+      align-items: center;
+    }
+
+    .artist {
+      width: 25%;
+      padding: 0 0.5rem;
+
+      .artist-inside {
+        display: flex;
+        gap: 0.5rem;
+
+        .cover {
+          width: 55px;
+          height: 55px;
+          object-fit: cover;
+        }
+
+        .track-info {
+          display: flex;
+          flex-direction: column;
+          align-self: center;
+        }
+
+        .track-title {
+          margin: 0;
+          font-weight: 400;
+          font-size: 0.8rem;
+        }
+
+        .sub-title {
+          margin: 0;
+          font-weight: 300;
+          font-size: 80%;
+          opacity: 0.6;
+        }
+      }
+
+      .track-like {
+        display: flex;
+        flex-direction: column;
+        align-self: center;
+        padding: 0 0.25rem;
+
+        .btn-like {
+          border: 0;
+          background-color: transparent;
+          color: var(--secondary);
+          font-size: var(--font-size-2);
+          opacity: 0.7;
+        }
+      }
+    }
+
+    .player-audio {
+      width: 25%;
+      padding: 0 0.5rem;
+    }
+
+    .player-controls {
+      width: 50%;
+      padding: 0 0.5rem;
+      position: relative;
+
+      .buttons-media {
+        display: flex;
+        justify-content: center;
+        align-self: center;
+        gap: 0.5rem;
+      }
+    }
+
+    .player-controls-inside {
+      display: flex;
+      justify-content: center;
+      align-self: center;
+      flex-direction: column;
+      width: 100%;
+      position: relative;
+
+      .buttons-media {
+        display: flex;
+        justify-content: center;
+        align-self: center;
+        gap: 0.5rem;
+
+        .btn {
+          background-color: transparent;
+          border: 0;
+          color: var(--primary);
+          opacity: 0.7;
+          font-size: 1.65rem;
+        }
+
+        .play {
+          font-size: 2.35rem;
+        }
+      }
+
+      .media-linetime {
+        display: flex;
+        justify-content: space-between;
+        font-size: 70%;
+        padding: 0;
+      }
+    }
+
+  }
+
 }
 
-.media-player .media-player--wrapper {
-  position: relative;
-  display: flex;
-  justify-content: space-between;
-  height: 100%;
-  padding: 0;
-}
 
-.media-player .media-player--wrapper .player-center {
-  display: flex;
-  align-content: center;
-  align-items: center;
-}
-
-.media-player--wrapper .artist {
-  width: 25%;
-  padding: 0 0.5rem;
-}
-
-.media-player--wrapper .player-audio {
-  width: 25%;
-  padding: 0 0.5rem;
-}
-
-.media-player--wrapper .player-controls {
-  width: 50%;
-  padding: 0 0.5rem;
-  position: relative;
-}
-
-.media-player--wrapper .artist .artist-inside {
-  display: flex;
-  gap: 0.5rem;
-}
-
-.media-player--wrapper .artist .track-like {
-  display: flex;
-  flex-direction: column;
-  align-self: center;
-  padding: 0 0.25rem;
-}
-
-.media-player--wrapper .artist .track-like .btn-like {
-  border: 0;
-  background-color: transparent;
-  color: var(--color-4);
-  font-size: var(--font-size-2);
-  opacity: 0.7;
-}
-
-.media-player--wrapper .artist .artist-inside .track-info {
-  display: flex;
-  flex-direction: column;
-  align-self: center;
-}
-
-.media-player--wrapper .artist .artist-inside .track-title {
-  margin: 0;
-  font-weight: 400;
-  font-size: 0.8rem;
-}
-
-.media-player--wrapper .artist .artist-inside .sub-title {
-  margin: 0;
-  font-weight: 300;
-  font-size: 80%;
-  opacity: 0.6;
-}
-
-.media-player--wrapper .artist .artist-inside .cover {
-  width: 55px;
-  height: 55px;
-  object-fit: cover;
-}
-
-.media-player--wrapper .player-controls-inside {
-  display: flex;
-  justify-content: center;
-  align-self: center;
-  flex-direction: column;
-  width: 100%;
-  position: relative;
-}
-
-.media-player--wrapper .player-controls-inside .buttons-media {
-  display: flex;
-  justify-content: center;
-  align-self: center;
-  gap: 0.5rem;
-}
-
-.media-player--wrapper .player-controls-inside .buttons-media .btn {
-  background-color: transparent;
-  border: 0;
-  color: var(--color-4);
-  opacity: 0.7;
-  font-size: 1.65rem;
-}
-
-.media-player--wrapper .player-controls-inside .buttons-media .play {
-  font-size: 2.35rem;
-}
-
-.media-player--wrapper .player-controls-inside .media-linetime {
-  display: flex;
-  justify-content: space-between;
-  font-size: 70%;
-  padding: 0;
-}
-
-.media-player--wrapper .player-controls-inside .media-linetime .time {
+.media-player--wrapper .player-controls-inside .media-player--wrapper .player-controls-inside .media-linetime .time {
   padding: 0.5rem 0;
 }
 
@@ -195,6 +205,7 @@ import { Icon } from '@iconify/vue'
   left: 0;
   position: absolute;
   cursor: pointer;
+  background-color: var(--secondary);
 }
 
 .media-player--wrapper .player-controls-inside .media-linetime .time-progress-live {
@@ -213,7 +224,7 @@ import { Icon } from '@iconify/vue'
 .media-player--wrapper .player-audio-inside .btn-media {
   background-color: transparent;
   border: 0;
-  color: var(--color-4);
+  color: var(--primary);
   font-size: var(--font-size-2);
   cursor: pointer;
 }
@@ -228,21 +239,25 @@ import { Icon } from '@iconify/vue'
   left: 0;
   cursor: pointer;
 
-  background-color: var(--color-2);
+  background-color: var(--secondary);
   width: 50%;
   height: 5px;
   transition: all ease var(--animation-1);
   position: relative;
 }
 
+.time {
+  color: var(--primary);
+}
+
 .volume-progress {
-  background-color: var(--color-4);
   width: 40%;
-  height: 2px;
+  height: 3px;
   left: 0;
   top: 11px;
   cursor: pointer;
   position: relative;
+  accent-color: var(--secondary);
 }
 
 .arrow,

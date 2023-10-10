@@ -1,53 +1,21 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { toast } from 'vue3-toastify'
-import { baseAxios } from '../../services/baseAxios'
+import { useAuthStore } from '../store/authStore';
+import { Icon } from '@iconify/vue';
 
 const loginForm = ref<{ email: string; password: string }>({
   email: '',
   password: ''
 })
 
-const token = ref<string>('')
-const expiresIn = ref<number>(0)
+const authStore = useAuthStore()
 
 const onLogin = async () => {
-  try {
-    const { data } = await baseAxios.post('/users/login', loginForm.value)
-    loginForm.value = {
-      email: '',
-      password: ''
-    }
-    token.value = data.token?.token
-    expiresIn.value = data.token?.expiresIn
-    checkExpireToken()
-  } catch (error) {
-    toast.error('Credentials is not valid')
-    console.log(error)
-  } finally {
-    console.log(false)
-  }
+  authStore.$reset()
+  await authStore.onLogin(loginForm.value.email, loginForm.value.password)
+
 }
 
-const refreshToken = async () => {
-  try {
-    const { data } = await baseAxios.get('/users/refresh')
-    token.value = data.token?.token
-    expiresIn.value = data.token?.expiresIn
-    checkExpireToken()
-  } catch (error) {
-    console.log(error)
-  }
-}
-
-const checkExpireToken = () => {
-  setTimeout(
-    () => {
-      refreshToken()
-    },
-    expiresIn.value * 1000 - 6000
-  )
-}
 </script>
 
 <template>
@@ -70,7 +38,11 @@ const checkExpireToken = () => {
         <RouterLink :to="{ name: 'register' }">Signup</RouterLink>
       </div>
 
-      <input type="submit" class="button" value="Acceder" />
+      <button type="submit" class="button flex justify-spacebettewn">
+        <Icon v-if="authStore.isLoading" icon="mdi:search" class="is-size-3" />
+        <span>Acceder</span>
+      </button>
+
       <!-- <button class="button" @click="refresh">Refresh</button> -->
     </form>
   </div>
@@ -84,6 +56,7 @@ const checkExpireToken = () => {
   background-color: #1c1c1c;
   border-radius: 8px;
   overflow: hidden;
+
   &::before {
     content: '';
     position: absolute;
@@ -96,6 +69,7 @@ const checkExpireToken = () => {
     transform-origin: bottom right;
     animation: animate 6s linear infinite;
   }
+
   &::after {
     content: '';
     position: absolute;
@@ -109,19 +83,23 @@ const checkExpireToken = () => {
     animation: animate 6s linear infinite;
     animation-delay: -3s;
   }
+
   .borderLine {
     position: absolute;
     top: 0;
     inset: 0;
   }
+
   @keyframes animate {
     0% {
       transform: rotate(0deg);
     }
+
     100% {
       transform: rotate(360deg);
     }
   }
+
   form {
     position: absolute;
     inset: 4px;
@@ -131,16 +109,19 @@ const checkExpireToken = () => {
     z-index: 2;
     display: flex;
     flex-direction: column;
+
     h2 {
       color: #fff;
       font-weight: 500;
       text-align: center;
       letter-spacing: 0.1rem;
     }
+
     .inputBox {
       position: relative;
       width: 300px;
       margin-top: 35px;
+
       input {
         position: relative;
         width: 100%;
@@ -154,14 +135,16 @@ const checkExpireToken = () => {
         letter-spacing: 0.05em;
         transition: 0.5s;
         z-index: 10;
-        &:valid ~ span,
-        &:focus ~ span {
+
+        &:valid~span,
+        &:focus~span {
           color: #fff;
           font-size: 0.75em;
           transform: translateY(-34px);
         }
-        &:valid ~ i,
-        &:focus ~ i {
+
+        &:valid~i,
+        &:focus~i {
           height: 44px;
         }
 
@@ -176,11 +159,13 @@ const checkExpireToken = () => {
           width: 100px;
           margin-top: 10px;
           outline: 1px solid violet;
+
           &:active {
             opacity: 0.8;
           }
         }
       }
+
       span {
         position: absolute;
         left: 0;
@@ -191,6 +176,7 @@ const checkExpireToken = () => {
         letter-spacing: 0.05em;
         transition: 0.5s;
       }
+
       i {
         position: absolute;
         left: 0;
@@ -204,14 +190,17 @@ const checkExpireToken = () => {
         pointer-events: none;
       }
     }
+
     .links {
       display: flex;
       justify-content: space-between;
+
       a {
         margin: 10px 0;
         font-size: 0.75em;
         color: #8f8f8f;
         text-decoration: none;
+
         &:hover,
         &:nth-child(2) {
           color: #fff;

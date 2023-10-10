@@ -1,18 +1,17 @@
 <script lang="ts" setup>
-import BaseNavbar from '../../shared/components/BaseNavbar.vue';
-
+import TheSidebar from '@/shared/components/TheSidebar.vue';
 import TheMediaPLayer from '@/shared/components/TheMediaPLayer.vue'
 </script>
 
 <template>
   <div class="container columns is-clipped m-0">
-    <BaseNavbar />
+    <TheSidebar />
     <!-- <TheSidebar class="column is-one-fifth" /> -->
     <main class="">
       <RouterView />
     </main>
   </div>
-  <!-- <TheMediaPLayer /> -->
+  <TheMediaPLayer />
 </template>
 
 <style scoped lang="scss">
