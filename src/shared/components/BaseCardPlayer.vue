@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import { Icon } from '@iconify/vue';
+import BaseBtnLike from './BaseBtnLike.vue';
 const { track, mode } = withDefaults(
   defineProps<{
     track: any | null
@@ -24,7 +26,10 @@ const { track, mode } = withDefaults(
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis quod eveniet inventore? Commodi possimus
           vitae corrupti,
         </p>
-        <a href="">ReadMore</a>
+        <div class="btns">
+          <BaseBtnLike icon="heart-outline" />
+          <Icon class="btn btn-play" icon="mdi:play-circle" />
+        </div>
       </div>
     </div>
   </div>
@@ -57,32 +62,32 @@ const { track, mode } = withDefaults(
   justify-content: center;
   align-items: flex-start;
   position: relative;
-  width: 350px;
-  height: 300px;
+  width: 250px;
+  height: 200px;
   border-radius: 20px;
   box-shadow: 0 35px 80px rgba($color: #000000, $alpha: 0.15);
   transition: 0.5s;
 
   &:hover {
-    height: 400px;
+    height: 300px;
 
     .imgBox {
-      top: -100px;
+      top: -50px;
       scale: 0.75;
       box-shadow: 0 15px 45px rgba($color: #000000, $alpha: 0.2);
     }
 
     .content {
-      top: 130px;
-      height: 250px;
+      top: 70px;
+      height: 200px;
     }
   }
 
   .imgBox {
     position: absolute;
-    top: 20px;
-    width: 300px;
-    height: 220px;
+    top: 10px;
+    width: 200px;
+    height: 100px;
     border-radius: 12px;
     overflow: hidden;
     transition: 0.5s;
@@ -99,9 +104,9 @@ const { track, mode } = withDefaults(
 
   .content {
     position: absolute;
-    top: 252px;
+    top: 152px;
     width: 100%;
-    height: 35px;
+    height: 25px;
     overflow: hidden;
     text-align: center;
     transition: 0.5s;
@@ -114,17 +119,32 @@ const { track, mode } = withDefaults(
 
     p {
       color: var(--text);
-      font-size: 1.05em;
+      font-size: 1em;
     }
 
-    a {
-      position: relative;
-      top: 15px;
-      display: inline-block;
-      padding: 12px 25px;
-      background-color: var(--secondary);
-      color: var(--white);
+    .btns {
+      display: flex;
+      align-items: center;
+      justify-content: space-evenly;
 
+      .btn {
+        border: 0;
+        background-color: transparent;
+        font-size: var(--font-size-1);
+        opacity: 0.7;
+        cursor: pointer;
+
+        &:active {
+          transform: scale(0.8);
+        }
+      }
+
+
+
+      .btn-play {
+        color: var(--success);
+
+      }
     }
   }
 }
