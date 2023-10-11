@@ -29,7 +29,7 @@ import { mainMenu, customOptions } from '@/router/homeLinks'
 
         <ul class="navbar__container">
             <li class="link" v-for="item in mainMenu.accessLink" :key="item.router">
-                <router-link to="/">
+                <router-link :to="{ name: item.router.name }">
                     <Icon :icon="item.icon" class="is-size-3" />
                     <span class="link__text">{{ item.name }}</span>
                 </router-link>

@@ -22,10 +22,11 @@ const { track, mode } = withDefaults(
       </div>
       <div class="content">
         <h2>Title</h2>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis quod eveniet inventore? Commodi possimus
-          vitae corrupti,
-        </p>
+        <div>
+          <h3>Artista: </h3>
+          <h4>Album: </h4>
+          <span>Rating</span>
+        </div>
         <div class="btns">
           <BaseBtnLike icon="heart-outline" />
           <Icon class="btn btn-play" icon="mdi:play-circle" />
@@ -117,7 +118,7 @@ const { track, mode } = withDefaults(
       color: var(--primary);
     }
 
-    p {
+    div {
       color: var(--text);
       font-size: 1em;
     }

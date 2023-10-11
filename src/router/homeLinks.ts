@@ -6,7 +6,7 @@ export const mainMenu: {
     {
       name: 'Inicio',
       icon: 'mdi-light:home',
-      router: ['/', 'auth']
+      router: { name: 'home' }
     },
     {
       name: 'Buscar',
@@ -17,12 +17,13 @@ export const mainMenu: {
   accessLink: [
     {
       name: 'Crear lista',
-      icon: 'mdi:plus-box-outline'
+      icon: 'mdi:plus-box-outline',
+      router: { name: 'home' }
     },
     {
       name: 'Canciones que te gustan',
       icon: 'mdi:heart-outline',
-      router: ['/', 'favorites']
+      router: { name: 'favorites' }
     }
   ]
 }
