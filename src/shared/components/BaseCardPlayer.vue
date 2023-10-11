@@ -88,7 +88,7 @@ const { track, mode } = withDefaults(
     position: absolute;
     top: 10px;
     width: 200px;
-    height: 100px;
+    height: 120px;
     border-radius: 12px;
     overflow: hidden;
     transition: 0.5s;
