@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { Icon } from '@iconify/vue';
 import BaseBtnLike from './BaseBtnLike.vue';
+import BaseRating from './BaseRating.vue';
 const { track, mode } = withDefaults(
   defineProps<{
     track: any | null
@@ -25,7 +26,9 @@ const { track, mode } = withDefaults(
         <div>
           <h3>Artista: </h3>
           <h4>Album: </h4>
-          <span>Rating</span>
+          <span>Rating:
+            <BaseRating :rating="3" />
+          </span>
         </div>
         <div class="btns">
           <BaseBtnLike icon="heart-outline" />
