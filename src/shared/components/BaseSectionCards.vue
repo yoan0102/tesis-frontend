@@ -1,8 +1,10 @@
 <script lang="ts" setup>
+import BaseCardPlayer from './BaseCardPlayer.vue';
+
 defineProps<{
   title: string
   mode: 'small' | 'big'
-  dataTracks: any
+  dataTracks: any[]
 }>()
 </script>
 
@@ -10,37 +12,27 @@ defineProps<{
   <div class="section--generic">
     <h1 class="section--generic__title">{{ title }}</h1>
 
-    <div class="section--generic__player--zone">
-      <ul
-        class="player--list"
-        :class="{ 'card-small': mode === 'small', 'card-big': mode === 'big' }"
-      >
+    <div class="player-zone">
+      <BaseCardPlayer v-for="track in dataTracks" :key="track.id" :track="track" :mode="mode" />
+    </div>
+    <!-- <div class="section--generic__player--zone">
+      <ul class="player--list" :class="{ 'card-small': mode === 'small', 'card-big': mode === 'big' }">
         <li v-for="track in dataTracks" :key="track.id">
-          <app-card-player [track]="track" [mode]="mode"></app-card-player>
+          <BaseCardPlayer :track="track" :mode="mode" />
         </li>
       </ul>
-    </div>
+    </div> -->
   </div>
 </template>
 
 <style scoped lang="scss">
-.section--generic {
-  margin-bottom: 2rem;
-}
-
-.section--generic__player--zone .player--list {
-  display: grid;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  gap: 1.15rem;
-}
-
-.section--generic__player--zone .player--list.card-small {
-  grid-template-columns: repeat(5, 1fr);
-}
-
-.section--generic__player--zone .player--list.card-big {
-  grid-template-columns: repeat(6, minmax(100px, 1fr));
+.player-zone {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 50px 25px;
+  padding: 25px 5px;
 }
 </style>
