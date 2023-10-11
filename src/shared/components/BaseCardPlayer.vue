@@ -23,12 +23,13 @@ const { track, mode } = withDefaults(
       </div>
       <div class="content">
         <h2>Title</h2>
-        <div>
-          <h3>Artista: </h3>
-          <h4>Album: </h4>
-          <span>Rating:
+        <div class="is-flex is-flex-direction-column border">
+          <h3 class="is-size-5 is-uppercase">Artista: </h3>
+          <h4 class="is-size-5 is-uppercase">Album: </h4>
+          <p class="is-flex is-align-items-center is-justify-content-center mb-2">
+            <span class="is-uppercase">Rating:</span>
             <BaseRating :rating="3" />
-          </span>
+          </p>
         </div>
         <div class="btns">
           <BaseBtnLike icon="heart-outline" />
