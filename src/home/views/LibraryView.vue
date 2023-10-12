@@ -11,7 +11,7 @@ const { tracks, isLoading } = useGetTracks()
 <template>
   <div class="track-page">
     <BaseSpinner v-if="isLoading" />
-    <BaseSectionCards title="La Mejor música del mundo" mode="small" :data-tracks="tracks" />
+    <BaseSectionCards v-else title="La Mejor música del mundo" mode="small" :data-tracks="tracks" />
     <!-- <BaseSectionCards title="Lo mejor de Electronica" mode="big" :data-tracks="data.data" /> -->
   </div>
 </template>

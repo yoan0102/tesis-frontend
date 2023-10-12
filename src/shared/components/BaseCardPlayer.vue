@@ -2,9 +2,10 @@
 import { Icon } from '@iconify/vue';
 import BaseBtnLike from './BaseBtnLike.vue';
 import BaseRating from './BaseRating.vue';
+import { Track } from '../../interfaces/tracks';
 const { track, mode } = withDefaults(
   defineProps<{
-    track: any | null
+    track: Track
     mode: 'small' | 'big'
   }>(),
   {
@@ -22,13 +23,13 @@ const { track, mode } = withDefaults(
         <img src="@/assets/cover.jpeg" alt="logo">
       </div>
       <div class="content">
-        <h2>Title</h2>
+        <h2 class="is-capitalized">{{ track.name }}</h2>
         <div class="is-flex is-flex-direction-column border">
-          <h3 class="is-size-5 is-uppercase">Artista: </h3>
-          <h4 class="is-size-5 is-uppercase">Album: </h4>
+          <h3 class="is-size-6 is-uppercase">Artista: <span class="is-capitalized">{{ track.artist.name }}</span> </h3>
+          <h4 class="is-size-6 is-uppercase">Album: <span class="is-capitalized">{{ track.album.name }}</span> </h4>
           <p class="is-flex is-align-items-center is-justify-content-center mb-2">
             <span class="is-uppercase">Rating:</span>
-            <BaseRating :rating="3" />
+            <BaseRating :rating="track.rating" />
           </p>
         </div>
         <div class="btns">
@@ -138,6 +139,8 @@ const { track, mode } = withDefaults(
         font-size: var(--font-size-1);
         opacity: 0.7;
         cursor: pointer;
+        display: flex;
+        align-items: center;
 
         &:active {
           transform: scale(0.8);
