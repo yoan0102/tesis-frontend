@@ -1,10 +1,11 @@
 <script lang="ts" setup>
 import BaseCardPlayer from './BaseCardPlayer.vue';
+import { Track } from '../../interfaces/tracks';
 
 defineProps<{
   title: string
   mode: 'small' | 'big'
-  dataTracks: any[]
+  dataTracks: Track[]
 }>()
 </script>
 

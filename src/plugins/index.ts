@@ -15,11 +15,10 @@ export function registerPlugins(app) {
   })
 
   app
-    .use(
-      app.use(VueQueryPlugin).use(Vue3Toastify, {
-        autoClose: 1500
-      } as ToastContainerOptions)
-    )
+    // .use(VueQueryPlugin)
+    .use(Vue3Toastify, {
+      autoClose: 1500
+    } as ToastContainerOptions)
     .use(pinia)
     .use(router)
 }
