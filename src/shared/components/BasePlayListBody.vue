@@ -16,8 +16,6 @@ const changeSort = (property: string) => {
         order: order === 'asc' ? 'desc' : 'asc'
     }
 }
-console.log(props.tracks)
-
 // watch(optionsSort, () => {
 //     if (!optionsSort.value.property) return trackOrder.value = props.tracks
 //     const tmpList = props.tracks.sort((a, b) => {

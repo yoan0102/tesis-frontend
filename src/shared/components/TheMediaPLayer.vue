@@ -1,5 +1,18 @@
 <script lang="ts" setup>
 import { Icon } from '@iconify/vue'
+import { useTrackPlayed } from '../composables/useTrackPlayed';
+import { watchEffect } from 'vue';
+
+const { track } = useTrackPlayed()
+const audio: HTMLAudioElement = new Audio()
+
+watchEffect(() => {
+  if (track.value?.url) {
+    audio.src = track.value?.url
+    audio.pause()
+    audio.play()
+  }
+})
 </script>
 
 <template>
@@ -7,11 +20,12 @@ import { Icon } from '@iconify/vue'
     <div class="media-player--wrapper">
       <!--Zona del artista-->
       <div class="artist player-center">
-        <div class="artist-inside">
-          <img src="@/assets/cover.jpeg" alt="" class="cover" />
+
+        <div class="artist-inside" v-if="track">
+          <img :src="track.cover" :alt="track?.name" class="cover" />
           <div class="track-info">
-            <h3 class="track-title">{{ 'Mas Rica que Ayer' }}</h3>
-            <h5 class="track-title sub-title">{{ ' Las Leyendas nunca mueren' }}</h5>
+            <h3 class="track-title">{{ track?.name }}</h3>
+            <h5 class="track-title sub-title">{{ track.album?.name }}</h5>
           </div>
           <div class="track-like">
             <button class="btn-like">
@@ -24,6 +38,7 @@ import { Icon } from '@iconify/vue'
       <div class="player-controls player-center">
         <div class="player-controls-inside">
           <div class="buttons-media">
+            <audio ref="audio"></audio>
             <button class="arrow btn">
               <Icon icon="mdi:skip-previous" />
             </button>
@@ -35,11 +50,11 @@ import { Icon } from '@iconify/vue'
             </button>
           </div>
           <div class="media-linetime">
-            <div class="time">00</div>
+            <div class="time">{{ '00:00' }}</div>
             <span class="time-progress">
               <span class="time-progress-live"> </span>
             </span>
-            <div class="time">00</div>
+            <div class="time">{{ '00:00' }}</div>
           </div>
         </div>
       </div>

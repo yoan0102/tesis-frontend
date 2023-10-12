@@ -11,18 +11,12 @@ defineProps<{
 
 <template>
   <div class="section--generic">
-    <h1 class="section--generic__title">{{ title }}</h1>
+    <!-- <h1 class="section--generic__title">{{ title }}</h1> -->
 
     <div class="player-zone">
-      <BaseCardPlayer v-for="track in dataTracks" :key="track.id" :track="track" :mode="mode" />
+      <BaseCardPlayer v-for="track in dataTracks" :key="track._id" :track="track" :mode="mode" />
     </div>
-    <!-- <div class="section--generic__player--zone">
-      <ul class="player--list" :class="{ 'card-small': mode === 'small', 'card-big': mode === 'big' }">
-        <li v-for="track in dataTracks" :key="track.id">
-          <BaseCardPlayer :track="track" :mode="mode" />
-        </li>
-      </ul>
-    </div> -->
+
   </div>
 </template>
 

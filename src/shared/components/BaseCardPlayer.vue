@@ -3,6 +3,9 @@ import { Icon } from '@iconify/vue';
 import BaseBtnLike from './BaseBtnLike.vue';
 import BaseRating from './BaseRating.vue';
 import { Track } from '../../interfaces/tracks';
+import { useTrackPlayed } from '../composables/useTrackPlayed';
+
+const { trackPlay } = useTrackPlayed()
 const { track, mode } = withDefaults(
   defineProps<{
     track: Track
@@ -13,6 +16,7 @@ const { track, mode } = withDefaults(
     mode: 'small'
   }
 )
+
 </script>
 
 <template>
@@ -20,21 +24,23 @@ const { track, mode } = withDefaults(
   <div class="card-player">
     <div class="player-card">
       <div class="imgBox">
-        <img src="@/assets/cover.jpeg" alt="logo">
+        <img :src="track?.cover" :alt="track?.name">
       </div>
       <div class="content">
-        <h2 class="is-capitalized">{{ track.name }}</h2>
+        <h2 class="is-capitalized">{{ track?.name }}</h2>
         <div class="is-flex is-flex-direction-column border">
-          <h3 class="is-size-6 is-uppercase">Artista: <span class="is-capitalized">{{ track.artist.name }}</span> </h3>
-          <h4 class="is-size-6 is-uppercase">Album: <span class="is-capitalized">{{ track.album.name }}</span> </h4>
+          <h3 class="is-size-6 is-uppercase">Artista: <span class="is-capitalized">{{ track.artist?.name }}</span> </h3>
+          <h4 class="is-size-6 is-uppercase">Album: <span class="is-capitalized">{{ track.album?.name }}</span> </h4>
           <p class="is-flex is-align-items-center is-justify-content-center mb-2">
             <span class="is-uppercase">Rating:</span>
-            <BaseRating :rating="track.rating" />
+            <BaseRating :rating="track?.rating" />
           </p>
         </div>
         <div class="btns">
           <BaseBtnLike icon="heart-outline" />
-          <Icon class="btn btn-play" icon="mdi:play-circle" />
+          <button class="btn" @click="trackPlay(track)">
+            <Icon class="btn-play" icon="mdi:play-circle" />
+          </button>
         </div>
       </div>
     </div>
