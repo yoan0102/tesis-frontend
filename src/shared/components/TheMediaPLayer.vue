@@ -1,11 +1,27 @@
 <script lang="ts" setup>
 import { Icon } from '@iconify/vue'
-import { useTrackPlayed } from '../composables/useTrackPlayed';
-import { watchEffect } from 'vue';
+import { useTrackPlayed } from '../composables/useTrackPlayed'
+import { watchEffect, ref } from 'vue';
 
-const { track, audio, calculateTime, timeElapsed, timeRemaining } = useTrackPlayed()
+const progressBar = ref()
 
+const handlePosition = (e: MouseEvent) => {
+  const { clientX } = e
+  const { clientWidth, x } = progressBar.value
+  console.log('--->', clientX, clientWidth, progressBar)
 
+}
+
+const { track,
+  audio,
+  calculateTime,
+  timeElapsed,
+  timeRemaining,
+  setPlayerStatus,
+  togglePlayer,
+  playerStatus,
+  playerPercentage
+} = useTrackPlayed()
 
 watchEffect(() => {
   if (track.value?.url) {
@@ -17,16 +33,15 @@ watchEffect(() => {
 })
 const ListenAllEvents = () => {
   audio.addEventListener('timeupdate', calculateTime, false)
-  // audio.addEventListener('playing', setPlayerStatus, false)
-  // audio.addEventListener('play', setPlayerStatus, false)
-  // audio.addEventListener('pause', setPlayerStatus, false)
-  // audio.addEventListener('ended', setPlayerStatus, false)
-
+  audio.addEventListener('playing', setPlayerStatus, false)
+  audio.addEventListener('play', setPlayerStatus, false)
+  audio.addEventListener('pause', setPlayerStatus, false)
+  audio.addEventListener('ended', setPlayerStatus, false)
 }
 
-
-
-
+const progressChange = (e) => {
+  audio.volume = e.target.value / 100
+}
 </script>
 
 <template>
@@ -34,7 +49,6 @@ const ListenAllEvents = () => {
     <div class="media-player--wrapper">
       <!--Zona del artista-->
       <div class="artist player-center">
-
         <div class="artist-inside" v-if="track">
           <img :src="track.cover" :alt="track?.name" class="cover" />
           <div class="track-info">
@@ -56,8 +70,9 @@ const ListenAllEvents = () => {
             <button class="arrow btn">
               <Icon icon="mdi:skip-previous" />
             </button>
-            <button class="play btn">
-              <Icon icon="mdi:play-circle" />
+            <button class="play btn" @click="togglePlayer">
+              <Icon v-if="playerStatus == 'paused'" icon="mdi:play-circle" />
+              <Icon v-else icon="mdi:pause-circle" />
             </button>
             <button class="arrow btn">
               <Icon icon="mdi:skip-next"></Icon>
@@ -65,8 +80,8 @@ const ListenAllEvents = () => {
           </div>
           <div class="media-linetime">
             <div class="time">{{ timeElapsed }}</div>
-            <span class="time-progress">
-              <span class="time-progress-live"> </span>
+            <span ref="progressBar" class="time-progress" @click="handlePosition">
+              <span class="time-progress-live" :style="{ width: playerPercentage + '%' }"></span>
             </span>
             <div class="time">{{ timeRemaining }}</div>
           </div>
@@ -85,7 +100,7 @@ const ListenAllEvents = () => {
           <button class="btn-media">
             <Icon icon="uil-volume" />
           </button>
-          <input type="range" min="0" max="100" value="100" class="volume-progress" />
+          <input type="range" min="0" max="100" value="100" class="volume-progress" @change="progressChange" />
         </div>
       </div>
     </div>
@@ -218,11 +233,8 @@ const ListenAllEvents = () => {
         padding: 0;
       }
     }
-
   }
-
 }
-
 
 .media-player--wrapper .player-controls-inside .media-player--wrapper .player-controls-inside .media-linetime .time {
   padding: 0.5rem 0;
@@ -240,9 +252,10 @@ const ListenAllEvents = () => {
 
 .media-player--wrapper .player-controls-inside .media-linetime .time-progress-live {
   width: 0%;
-  height: 10px;
+  height: 5px;
   transition: all ease var(--animation-1);
   position: absolute;
+  background-color: var(--primary);
 }
 
 .media-player--wrapper .player-audio-inside {
@@ -288,6 +301,7 @@ const ListenAllEvents = () => {
   cursor: pointer;
   position: relative;
   accent-color: var(--secondary);
+  background-color: var(--primary);
 }
 
 .arrow,
@@ -299,7 +313,6 @@ const ListenAllEvents = () => {
   cursor: pointer;
 }
 
-
 @media (min-width: 768px) {
   .media-player {
     .media-player--wrapper {
@@ -310,7 +323,5 @@ const ListenAllEvents = () => {
       }
     }
   }
-
-
 }
 </style>
