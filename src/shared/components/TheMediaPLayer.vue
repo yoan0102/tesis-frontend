@@ -3,16 +3,30 @@ import { Icon } from '@iconify/vue'
 import { useTrackPlayed } from '../composables/useTrackPlayed';
 import { watchEffect } from 'vue';
 
-const { track } = useTrackPlayed()
-const audio: HTMLAudioElement = new Audio()
+const { track, audio, calculateTime, timeElapsed, timeRemaining } = useTrackPlayed()
+
+
 
 watchEffect(() => {
   if (track.value?.url) {
     audio.src = track.value?.url
     audio.pause()
     audio.play()
+    ListenAllEvents()
   }
 })
+const ListenAllEvents = () => {
+  audio.addEventListener('timeupdate', calculateTime, false)
+  // audio.addEventListener('playing', setPlayerStatus, false)
+  // audio.addEventListener('play', setPlayerStatus, false)
+  // audio.addEventListener('pause', setPlayerStatus, false)
+  // audio.addEventListener('ended', setPlayerStatus, false)
+
+}
+
+
+
+
 </script>
 
 <template>
@@ -50,11 +64,11 @@ watchEffect(() => {
             </button>
           </div>
           <div class="media-linetime">
-            <div class="time">{{ '00:00' }}</div>
+            <div class="time">{{ timeElapsed }}</div>
             <span class="time-progress">
               <span class="time-progress-live"> </span>
             </span>
-            <div class="time">{{ '00:00' }}</div>
+            <div class="time">{{ timeRemaining }}</div>
           </div>
         </div>
       </div>
@@ -107,7 +121,7 @@ watchEffect(() => {
       padding: 0 0.5rem;
 
       .artist-inside {
-        display: flex;
+        display: none;
         gap: 0.5rem;
 
         .cover {
@@ -215,9 +229,10 @@ watchEffect(() => {
 }
 
 .media-player--wrapper .player-controls-inside .media-linetime .time-progress {
-  height: 10px;
+  height: 5px;
   width: 100%;
   left: 0;
+  margin-top: -6px;
   position: absolute;
   cursor: pointer;
   background-color: var(--secondary);
@@ -282,5 +297,20 @@ watchEffect(() => {
 
 .btn-like {
   cursor: pointer;
+}
+
+
+@media (min-width: 768px) {
+  .media-player {
+    .media-player--wrapper {
+      .artist {
+        .artist-inside {
+          display: flex;
+        }
+      }
+    }
+  }
+
+
 }
 </style>

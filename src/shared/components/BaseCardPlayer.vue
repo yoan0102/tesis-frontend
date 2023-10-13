@@ -24,7 +24,9 @@ const { track, mode } = withDefaults(
   <div class="card-player">
     <div class="player-card">
       <div class="imgBox">
-        <img :src="track?.cover" :alt="track?.name">
+        <img class="img-cover" v-if="track?.cover" :src="track?.cover === '' ? '@/aset/cover-g.jpg' : track?.cover"
+          :alt="track?.name">
+        <img v-else src="@/assets/cover-g.jpg" :alt="track?.name">
       </div>
       <div class="content">
         <h2 class="is-capitalized">{{ track?.name }}</h2>
@@ -111,6 +113,7 @@ const { track, mode } = withDefaults(
       width: 100%;
       height: 100%;
       object-fit: cover;
+
     }
   }
 
