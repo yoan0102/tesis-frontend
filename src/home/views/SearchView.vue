@@ -29,12 +29,13 @@ const handleTerm = () => {
 <template>
     <div class="search-container">
         <SearchHeader @change-term="searchTrack" />
-        <div class="mx-5">
+        <div class="mx-5 search-input">
             <input type="search" placeholder="Búsqueda" class="input" v-model="term" @input="handleTerm">
         </div>
 
         <div class="track-page">
             <BaseSpinner v-if="isLoading" />
+            <h2 class="title has-text-centered" v-else-if="searchedTrack.length < 1">No se encontraron Canciones</h2>
             <BaseSectionCards v-else title="La Mejor música del mundo" mode="small" :data-tracks="searchedTrack" />
         </div>
     </div>
@@ -43,7 +44,7 @@ const handleTerm = () => {
 <style scoped lang="scss">
 .search-container {
     min-width: 80vw;
-    margin-top: 20%;
+    margin-top: 8rem;
 }
 
 .track-page {
@@ -53,6 +54,11 @@ const handleTerm = () => {
 @media (min-width: 768px) {
     .search-container {
         min-width: 100vw;
+        margin-top: 0%;
+
+        .search-input {
+            display: none;
+        }
     }
 }
 </style>
