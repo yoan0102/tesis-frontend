@@ -61,4 +61,12 @@ const handleTerm = () => {
         }
     }
 }
+
+@media (min-width: 768px) {
+    .search-container {
+
+        min-width: 90vw;
+    }
+
+}
 </style>
