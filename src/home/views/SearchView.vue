@@ -3,7 +3,7 @@ import SearchHeader from '@/home/components/SearchHeader.vue'
 import { useGetTracks } from '../composables/useGetTracks'
 import BaseSectionCards from '@/shared/components/BaseSectionCards.vue'
 import BaseSpinner from '@/shared/components/BaseSpinner.vue'
-import { ref, watch } from 'vue'
+import { ref, watch, onMounted } from 'vue';
 import { Track } from '../../interfaces/tracks'
 
 const { tracks, isLoading } = useGetTracks()
@@ -13,6 +13,10 @@ const term = ref<string>()
 
 watch(tracks, (newValue) => {
     searchedTrack.value = newValue
+})
+
+onMounted(() => {
+    searchedTrack.value = tracks.value
 })
 
 const searchTrack = (e: string) => {
