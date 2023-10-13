@@ -2,15 +2,11 @@
 import { Icon } from '@iconify/vue'
 import { useTrackPlayed } from '../composables/useTrackPlayed'
 import { watchEffect, ref } from 'vue';
+import { nextTick } from 'process';
 
-const progressBar = ref()
+const progressBar = ref<HTMLSpanElement>()
 
-const handlePosition = (e: MouseEvent) => {
-  const { clientX } = e
-  const { clientWidth, x } = progressBar.value
-  console.log('--->', clientX, clientWidth, progressBar)
 
-}
 
 const { track,
   audio,
@@ -41,6 +37,15 @@ const ListenAllEvents = () => {
 
 const progressChange = (e) => {
   audio.volume = e.target.value / 100
+}
+
+const handleProgressPlayer = (e) => {
+  playerPercentage.value = e.target.value
+  nextTick(() => {
+    const percentage = (audio.duration * e.target.value) / 100
+    audio.currentTime = percentage
+  })
+
 }
 </script>
 
@@ -80,9 +85,8 @@ const progressChange = (e) => {
           </div>
           <div class="media-linetime">
             <div class="time">{{ timeElapsed }}</div>
-            <span ref="progressBar" class="time-progress" @click="handlePosition">
-              <span class="time-progress-live" :style="{ width: playerPercentage + '%' }"></span>
-            </span>
+            <input ref="progressBar" type="range" :value="playerPercentage" max="100" class="progress-bar"
+              @change="handleProgressPlayer">
             <div class="time">{{ timeRemaining }}</div>
           </div>
         </div>
@@ -231,6 +235,17 @@ const progressChange = (e) => {
         justify-content: space-between;
         font-size: 70%;
         padding: 0;
+
+        .progress-bar {
+          width: 100%;
+          margin-top: -6px;
+          height: 8px;
+          cursor: pointer;
+          position: absolute;
+          accent-color: var(--primary);
+        }
+
+
       }
     }
   }
