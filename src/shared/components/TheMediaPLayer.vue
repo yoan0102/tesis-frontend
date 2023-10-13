@@ -3,6 +3,7 @@ import { Icon } from '@iconify/vue'
 import { useTrackPlayed } from '../composables/useTrackPlayed'
 import { watchEffect, ref } from 'vue';
 import { nextTick } from 'process';
+import BaseBtnLike from './BaseBtnLike.vue';
 
 const progressBar = ref<HTMLSpanElement>()
 
@@ -62,7 +63,8 @@ const handleProgressPlayer = (e) => {
           </div>
           <div class="track-like">
             <button class="btn-like">
-              <Icon icon="mdi:heart-outline"></Icon>
+              <!-- <Icon icon="mdi:heart-outline"></Icon>B -->
+              <BaseBtnLike icon="heart-outline" />
             </button>
           </div>
         </div>

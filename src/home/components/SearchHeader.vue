@@ -6,19 +6,14 @@ import { Icon } from '@iconify/vue';
 
 <template>
     <div class="play-list-header">
-        <div class="cover">
-            <div class="cover-mock">
-                <div class="icon">
-                    <Icon icon="mdi:heart-outline" />
-                </div>
-            </div>
+        <div class="mx-5 ">
+            <input type="text" placeholder="Búsqueda" class="input">
         </div>
         <div class="content-text">
-            <div class="small-text">Playlist</div>
-            <h1 class="title">Canciones que te gustan</h1>
+            <div class="small-text">Búsqueda</div>
+            <h1 class="title">Busca tu canción</h1>
             <h5 class="sub-title">
                 Yoan Estrada Blanco
-                <span class="count-tracks">206 canciones</span>
             </h5>
         </div>
     </div>

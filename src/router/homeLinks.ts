@@ -11,7 +11,7 @@ export const mainMenu: {
     {
       name: 'Buscar',
       icon: 'mdi-search',
-      router: '/search'
+      router: { name: 'search' }
     }
   ],
   accessLink: [

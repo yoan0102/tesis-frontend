@@ -29,5 +29,13 @@ defineProps<{
   flex-wrap: wrap;
   gap: 50px 25px;
   padding: 25px 5px;
+  margin-top: 10%;
+
+}
+
+@media (min-width: 768px) {
+  .player-zone {
+    margin-top: 0px;
+  }
 }
 </style>
