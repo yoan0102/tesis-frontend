@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 
-import { onMounted } from 'vue';
 import BaseSectionCards from '../../shared/components/BaseSectionCards.vue';
 import BaseSpinner from '../../shared/components/BaseSpinner.vue';
 import { useGetTracks } from '../composables/useGetTracks';

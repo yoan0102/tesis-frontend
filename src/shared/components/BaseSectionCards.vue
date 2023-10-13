@@ -30,6 +30,7 @@ defineProps<{
   gap: 50px 25px;
   padding: 25px 5px;
   margin-top: 10%;
+  width: 100%;
 
 }
 

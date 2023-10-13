@@ -1,5 +1,12 @@
 <script lang="ts" setup>
-import { Icon } from '@iconify/vue';
+import { ref } from 'vue';
+const term = ref<string>('')
+
+const emits = defineEmits(['changeTerm'])
+
+const onChange = () => {
+    emits('changeTerm', term.value)
+}
 
 </script>
 
@@ -7,7 +14,7 @@ import { Icon } from '@iconify/vue';
 <template>
     <div class="play-list-header">
         <div class="mx-5 ">
-            <input type="text" placeholder="Búsqueda" class="input">
+            <input type="search" placeholder="Búsqueda" class="input" v-model="term" @input="onChange">
         </div>
         <div class="content-text">
             <div class="small-text">Búsqueda</div>
