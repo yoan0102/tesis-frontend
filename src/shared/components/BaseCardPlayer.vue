@@ -40,6 +40,9 @@ const { track, mode } = withDefaults(
         </div>
         <div class="btns">
           <BaseBtnLike icon="heart-outline" />
+          <a :href="track.url" download="" class="btn">
+            <Icon class="btn-play" icon="material-symbols:download" />
+          </a>
           <button class="btn" @click="trackPlay(track)">
             <Icon class="btn-play" icon="mdi:play-circle" />
           </button>
