@@ -1,10 +1,13 @@
 import { toast } from 'vue3-toastify'
-import { loginService, refreshTokenService } from '../services/auth.service'
+import { loginService, refreshTokenService, logoutService } from '../services/auth.service'
 import { useAuthStore } from '../store/authStore'
 import { useMutation } from '@tanstack/vue-query'
 import { storeToRefs } from 'pinia'
+import { useRouter } from 'vue-router'
 
 export default function useLogin() {
+  const router = useRouter()
+
   const authStore = useAuthStore()
   const { user, token } = storeToRefs(authStore)
 
@@ -23,14 +26,24 @@ export default function useLogin() {
     }
   )
 
-  const { mutate: refreshTokenMutate } = useMutation(async () => await refreshTokenService(), {
-    onSuccess(data) {
-      authStore.setUser(data.user)
-      authStore.setToken(data.token.token)
-      authStore.setExpiresIn(data.token.expiresIn)
+  const { mutate: refreshTokenMutate, isError: isRefreshError } = useMutation(
+    async () => await refreshTokenService(),
+    {
+      onSuccess(data) {
+        authStore.setToken(data.token.token)
+        authStore.setExpiresIn(data.token.expiresIn)
+      },
+      onError() {
+        toast.error('Credentials Incorrect')
+      }
+    }
+  )
+  const { mutate: mutateLogout } = useMutation(async () => logoutService(), {
+    onSuccess() {
+      router.replace({ name: 'home' })
     },
     onError() {
-      toast.error('Credentials Incorrect')
+      toast.error('Up algo a salido mal intente cerrar sesión nuevamente')
     }
   })
 
@@ -39,13 +52,20 @@ export default function useLogin() {
   }
 
   async function refreshToken() {
-    await refreshTokenMutate()
+    refreshTokenMutate()
   }
+
+  async function logout() {
+    mutateLogout()
+  }
+
   return {
     user,
     token,
     isLoading,
+    isRefreshError,
     onLogin,
-    refreshToken
+    refreshToken,
+    logout
   }
 }
