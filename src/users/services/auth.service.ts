@@ -1,6 +1,7 @@
-import { baseAxios } from '@/services/baseAxios'
+import { baseAxios } from '@/api/baseAxios'
 
 export async function loginService(email: string, password: string) {
+  console.log(email, password)
   const { data } = await baseAxios.post('/users/login', { email, password })
   return data
 }

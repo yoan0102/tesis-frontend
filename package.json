@@ -16,6 +16,9 @@
   },
   "dependencies": {
     "@tanstack/vue-query": "^4.37.0",
+    "@vuelidate/core": "^2.0.3",
+    "@vuelidate/validators": "^2.0.4",
+    "@vueuse/core": "^10.5.0",
     "axios": "^1.5.0",
     "bulma": "^0.9.4",
     "pinia": "^2.1.6",

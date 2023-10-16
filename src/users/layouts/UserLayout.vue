@@ -1,7 +1,7 @@
 <script lang="ts" setup></script>
 
 <template>
-  <div class="container has-background-black">
+  <div class="container">
     <RouterView />
   </div>
 </template>

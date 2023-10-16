@@ -3,7 +3,6 @@ import { getTracks } from '../services/tracks.service'
 import { useTracksStore } from '../stores/tracksStore'
 import { watch } from 'vue'
 import { storeToRefs } from 'pinia'
-import { toast } from 'vue3-toastify'
 
 export const useGetTracks = () => {
   const tracksStore = useTracksStore()

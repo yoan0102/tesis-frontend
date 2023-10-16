@@ -30,6 +30,13 @@ const router = createRouter({
       path: '/users'
     }
   ]
+  // scrollBehavior(to, from, savedPosition) {
+  //   console.log(to)
+  //   return {
+  //     el: to.hash,
+  //     behavior: 'smooth'
+  //   }
+  // }
 })
 
 export default router

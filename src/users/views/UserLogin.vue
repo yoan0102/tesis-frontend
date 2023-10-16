@@ -1,19 +1,28 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { useAuthStore } from '../store/authStore';
-import { Icon } from '@iconify/vue';
+// import { Icon } from '@iconify/vue';
+// import { useVuelidate } from '@vuelidate/core';
+import { required, email } from '@vuelidate/validators';
+import useLogin from '../composables/useLogin';
+
+const { onLogin } = useLogin()
 
 const loginForm = ref<{ email: string; password: string }>({
   email: '',
   password: ''
 })
 
-const authStore = useAuthStore()
+const rules = {
+  email: { required, email },
+  password: required
+}
 
-const onLogin = async () => {
-  authStore.$reset()
-  await authStore.onLogin(loginForm.value.email, loginForm.value.password)
 
+
+// const v$ = useVuelidate(rules, loginForm)
+
+const onSubmit = async () => {
+  await onLogin(loginForm.value.email, loginForm.value.password)
 }
 
 </script>
@@ -21,15 +30,15 @@ const onLogin = async () => {
 <template>
   <div class="box">
     <span class="borderLine"></span>
-    <form @submit.prevent="onLogin">
+    <form @submit.prevent="onSubmit">
       <h2 class="title is-1">Acceder</h2>
       <div class="inputBox">
-        <input type="text" required v-model="loginForm.email" />
+        <input type="text" v-model="loginForm.email" />
         <span>Email</span>
         <i></i>
       </div>
       <div class="inputBox">
-        <input type="password" required v-model="loginForm.password" />
+        <input type="password" v-model="loginForm.password" />
         <span>Contraseña</span>
         <i></i>
       </div>
@@ -39,7 +48,7 @@ const onLogin = async () => {
       </div>
 
       <button type="submit" class="button flex justify-spacebettewn">
-        <Icon v-if="authStore.isLoading" icon="mdi:search" class="is-size-3" />
+        <!-- <Icon v-if="authStore.isLoading" icon="mdi:search" class="is-size-3" /> -->
         <span>Acceder</span>
       </button>
 
