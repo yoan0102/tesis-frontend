@@ -17,7 +17,7 @@ import { mainMenu, customOptions } from '@/router/homeLinks'
         </div>
         <div class="separator link--mobile-hide"></div>
 
-        <ul class="navbar__container">
+        <ul class="navbar__container" v-if="mainMenu.defaultOptions.length > 0">
             <li class="link" v-for="item in mainMenu.defaultOptions" :key="item.router">
                 <router-link :to="{ name: item.router.name }">
                     <Icon :icon="item.icon" class="is-size-3" />
@@ -27,7 +27,7 @@ import { mainMenu, customOptions } from '@/router/homeLinks'
         </ul>
         <div class="separator link--mobile-hide"></div>
 
-        <ul class="navbar__container">
+        <ul class="navbar__container" v-if="mainMenu.accessLink.length > 0">
             <li class="link" v-for="item in mainMenu.accessLink" :key="item.router">
                 <router-link :to="{ name: item.router.name }">
                     <Icon :icon="item.icon" class="is-size-3" />
@@ -35,7 +35,7 @@ import { mainMenu, customOptions } from '@/router/homeLinks'
                 </router-link>
             </li>
         </ul>
-        <div class="separator link--mobile-hide"></div>
+        <div class="separator link--mobile-hide" v-if="mainMenu.accessLink.length > 0"></div>
 
         <ul class="navbar__container">
             <li class="link" v-for="item in customOptions" :key="item.router">
@@ -49,10 +49,10 @@ import { mainMenu, customOptions } from '@/router/homeLinks'
             <img src="" class="link__image--profile" alt="image profile">
         </router-link> -->
 
-        <router-link to="/" class="navbar__more link">
+        <!-- <router-link to="/" class="navbar__more link">
             <Icon icon="mdi:more" class="is-size-3" />
             <span class="link__text">More...</span>
-        </router-link>
+        </router-link> -->
 
     </nav>
 </template>

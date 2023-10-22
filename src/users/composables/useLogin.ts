@@ -4,6 +4,7 @@ import { useAuthStore } from '../store/authStore'
 import { useMutation } from '@tanstack/vue-query'
 import { storeToRefs } from 'pinia'
 import { useRouter } from 'vue-router'
+import { useLocalStorage } from '@vueuse/core'
 
 export default function useLogin() {
   const router = useRouter()

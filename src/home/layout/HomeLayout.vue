@@ -7,7 +7,7 @@ import TheMediaPLayer from '@/shared/components/TheMediaPLayer.vue'
   <div class="container columns is-clipped m-0">
     <TheSidebar />
     <!-- <TheSidebar class="column is-one-fifth" /> -->
-    <main class="">
+    <main class="main">
       <RouterView />
     </main>
   </div>
@@ -18,5 +18,9 @@ import TheMediaPLayer from '@/shared/components/TheMediaPLayer.vue'
 .container {
   min-width: 100vw;
   min-height: 100vh;
+}
+
+.main {
+  width: 100%;
 }
 </style>

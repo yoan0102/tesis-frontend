@@ -2,12 +2,21 @@
 
 
 <template>
-    <span class="loader"></span>
+    <div>
+        <span class="loader"></span>
+    </div>
 </template>
 
 
 
 <style scoped lang="scss">
+div {
+    width: 100vw;
+    height: 100vh;
+    display: grid;
+    place-content: center;
+}
+
 .loader {
     width: 48px;
     height: 48px;

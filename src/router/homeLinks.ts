@@ -15,23 +15,23 @@ export const mainMenu: {
     }
   ],
   accessLink: [
-    {
-      name: 'Crear lista',
-      icon: 'mdi:plus-box-outline',
-      router: { name: 'home' }
-    },
-    {
-      name: 'Canciones que te gustan',
-      icon: 'mdi:heart-outline',
-      router: { name: 'favorites' }
-    }
+    // {
+    //   name: 'Crear lista',
+    //   icon: 'mdi:plus-box-outline',
+    //   router: { name: 'home' }
+    // },
+    // {
+    //   name: 'Canciones que te gustan',
+    //   icon: 'mdi:heart-outline',
+    //   router: { name: 'favorites' }
+    // }
   ]
 }
 
 export const customOptions: Array<any> = [
-  {
-    name: 'Lista de Reproducción',
-    icon: 'mdi:format-list-bulleted',
-    router: ['/', 'playlist']
-  }
+  // {
+  //   name: 'Lista de Reproducción',
+  //   icon: 'mdi:format-list-bulleted',
+  //   router: ['/', 'playlist']
+  // }
 ]

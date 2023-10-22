@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import type { User } from '../interfaces/user.interface'
+import { useLocalStorage } from '@vueuse/core'
 
 export const useAuthStore = defineStore('auth', () => {
   const user = ref<User>()
@@ -9,6 +10,7 @@ export const useAuthStore = defineStore('auth', () => {
 
   const setUser = (value: User) => {
     user.value = value
+    useLocalStorage('user', value)
   }
   const setToken = (value: string) => {
     token.value = value

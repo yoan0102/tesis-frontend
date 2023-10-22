@@ -1,28 +1,35 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-// import { Icon } from '@iconify/vue';
-// import { useVuelidate } from '@vuelidate/core';
-import { required, email } from '@vuelidate/validators';
+import { reactive } from 'vue'
+import { Icon } from '@iconify/vue';
+import { useVuelidate } from '@vuelidate/core';
+import { required, email, minLength, helpers } from '@vuelidate/validators';
 import useLogin from '../composables/useLogin';
 
-const { onLogin } = useLogin()
+const { onLogin, isLoading } = useLogin()
 
-const loginForm = ref<{ email: string; password: string }>({
+const loginForm = reactive({
   email: '',
   password: ''
 })
 
 const rules = {
-  email: { required, email },
-  password: required
+  email: {
+    required: helpers.withMessage('El email es requerido', required),
+    email: helpers.withMessage('El formato no es el de un email valido', email)
+  },
+  password: {
+    required: helpers.withMessage('El password es requerido', required),
+    minLength: minLength(3),
+
+  }
 }
 
 
-
-// const v$ = useVuelidate(rules, loginForm)
+const v$ = useVuelidate(rules, loginForm)
 
 const onSubmit = async () => {
-  await onLogin(loginForm.value.email, loginForm.value.password)
+  if (!(await v$.value.$validate())) return
+  await onLogin(loginForm.email, loginForm.password)
 }
 
 </script>
@@ -33,22 +40,30 @@ const onSubmit = async () => {
     <form @submit.prevent="onSubmit">
       <h2 class="title is-1">Acceder</h2>
       <div class="inputBox">
-        <input type="text" v-model="loginForm.email" />
+        <input type="text" v-model="loginForm.email" @blur="v$.email.$touch" />
         <span>Email</span>
         <i></i>
       </div>
+
+      <span v-if="v$.email.$error">
+        <p class="has-text-danger mt-2" v-for="error in v$.email.$errors" :key="error.$uid">{{ error.$message }}</p>
+      </span>
+
       <div class="inputBox">
-        <input type="password" v-model="loginForm.password" />
+        <input type="password" v-model="loginForm.password" @blur="v$.password.$touch" />
         <span>Contraseña</span>
         <i></i>
       </div>
+      <span v-if="v$.password.$error">
+        <p class="has-text-danger mt-2" v-for="error in v$.password.$errors" :key="error.$uid">{{ error.$message }}</p>
+      </span>
       <div class="links">
         <a href="#">Cambiar Contraseña</a>
         <RouterLink :to="{ name: 'register' }">Signup</RouterLink>
       </div>
 
       <button type="submit" class="button flex justify-spacebettewn">
-        <!-- <Icon v-if="authStore.isLoading" icon="mdi:search" class="is-size-3" /> -->
+        <Icon v-if="isLoading" icon="mdi:search" class="is-size-3" />
         <span>Acceder</span>
       </button>
 
@@ -61,7 +76,7 @@ const onSubmit = async () => {
 .box {
   position: relative;
   width: 380px;
-  height: 420px;
+  height: 470px;
   background-color: #1c1c1c;
   border-radius: 8px;
   overflow: hidden;
