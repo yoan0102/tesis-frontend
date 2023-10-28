@@ -25,5 +25,6 @@ import MenuFloat from '@/shared/components/MenuFloat.vue';
 
 .main {
   width: 100%;
+
 }
 </style>
