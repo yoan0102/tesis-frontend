@@ -4,7 +4,6 @@ import { useAuthStore } from '../store/authStore'
 import { useMutation } from '@tanstack/vue-query'
 import { storeToRefs } from 'pinia'
 import { useRouter } from 'vue-router'
-import { useLocalStorage } from '@vueuse/core'
 
 export default function useLogin() {
   const router = useRouter()
@@ -17,9 +16,10 @@ export default function useLogin() {
       await loginService(user.email, user.password),
     {
       onSuccess(data) {
-        authStore.setUser(data.user)
-        authStore.setToken(data.token.token)
-        authStore.setExpiresIn(data.token.expiresIn)
+        authStore.setUser(data.data.user)
+        authStore.setToken(data.data.token?.token)
+        authStore.setExpiresIn(data.data.token?.expiresIn)
+        router.push({ name: 'home' })
       },
       onError() {
         toast.error('Credentials Incorrect')

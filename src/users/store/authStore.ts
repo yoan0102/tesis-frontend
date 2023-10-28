@@ -4,16 +4,15 @@ import type { User } from '../interfaces/user.interface'
 import { useLocalStorage } from '@vueuse/core'
 
 export const useAuthStore = defineStore('auth', () => {
-  const user = ref<User>()
-  const token = ref<string>()
+  const user = ref(useLocalStorage('user', null))
+  const token = ref(useLocalStorage('token', null))
   const expiresIn = ref<number>()
 
   const setUser = (value: User) => {
-    user.value = value
     useLocalStorage('user', value)
   }
   const setToken = (value: string) => {
-    token.value = value
+    useLocalStorage('token', value)
   }
 
   const setExpiresIn = (value: number) => {
