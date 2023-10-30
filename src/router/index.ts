@@ -14,7 +14,7 @@ const router = createRouter({
           component: () => import('@/home/views/LibraryView.vue')
         },
         {
-          path: '/favorites',
+          path: '/favoritas',
           name: 'favorites',
           component: () => import('@/tracks/views/FavoritesView.vue')
         },
@@ -22,6 +22,11 @@ const router = createRouter({
           path: '/search',
           name: 'search',
           component: () => import('@/home/views/SearchView.vue')
+        },
+        {
+          path: '/orietaciones-tecnicas',
+          name: 'Guidelines',
+          component: () => import('@/home/views/Orientaciones.vue')
         }
       ]
     },

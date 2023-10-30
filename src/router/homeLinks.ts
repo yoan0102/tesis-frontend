@@ -12,19 +12,24 @@ export const mainMenu: {
       name: 'Buscar',
       icon: 'mdi-search',
       router: { name: 'search' }
+    },
+    {
+      name: 'Orientaciones',
+      icon: 'mdi:guitar-pick',
+      router: { name: 'Guidelines' }
     }
   ],
   accessLink: [
-    // {
-    //   name: 'Crear lista',
-    //   icon: 'mdi:plus-box-outline',
-    //   router: { name: 'home' }
-    // },
-    // {
-    //   name: 'Canciones que te gustan',
-    //   icon: 'mdi:heart-outline',
-    //   router: { name: 'favorites' }
-    // }
+    {
+      name: 'Crear lista',
+      icon: 'mdi:plus-box-outline',
+      router: { name: 'home' }
+    },
+    {
+      name: 'Canciones que te gustan',
+      icon: 'mdi:heart-outline',
+      router: { name: 'favorites' }
+    }
   ]
 }
 

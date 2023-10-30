@@ -1,6 +1,17 @@
 <script lang="ts" setup>
 import { Icon } from '@iconify/vue';
 
+
+type Props = {
+    smallText: string
+    title: string
+    userName: string
+    trackTotal?: number
+    icon: string
+}
+defineProps<Props>()
+
+
 </script>
 
 
@@ -9,16 +20,16 @@ import { Icon } from '@iconify/vue';
         <div class="cover">
             <div class="cover-mock">
                 <div class="icon">
-                    <Icon icon="mdi:heart-outline" />
+                    <Icon :icon="`mdi:${icon}`" />
                 </div>
             </div>
         </div>
         <div class="content-text">
-            <div class="small-text">Playlist</div>
-            <h1 class="title">Canciones que te gustan</h1>
+            <div class="small-text">{{ smallText }}</div>
+            <h1 class="title">{{ title }}</h1>
             <h5 class="sub-title">
-                Yoan Estrada Blanco
-                <span class="count-tracks">206 canciones</span>
+                {{ userName }}
+                <span class="count-tracks" v-if="trackTotal">{{ trackTotal }} canciones</span>
             </h5>
         </div>
     </div>
