@@ -1,6 +1,11 @@
 <script lang="ts" setup>
 import { Icon } from '@iconify/vue'
 import { mainMenu, customOptions } from '@/router/homeLinks'
+import { useAuthStore } from '@/users/store/authStore';
+
+
+
+const authStore = useAuthStore()
 
 </script>
 
@@ -25,9 +30,11 @@ import { mainMenu, customOptions } from '@/router/homeLinks'
                 </router-link>
             </li>
         </ul>
-        <div class="separator link--mobile-hide"></div>
 
-        <ul class="navbar__container" v-if="mainMenu.accessLink.length > 0">
+
+        <div class="separator link--mobile-hide" v-if="authStore.user"></div>
+
+        <ul class="navbar__container" v-if="mainMenu.accessLink.length > 0 && authStore.user">
             <li class="link" v-for="item in mainMenu.accessLink" :key="item.router">
                 <router-link :to="{ name: item.router.name }">
                     <Icon :icon="item.icon" class="is-size-3" />
@@ -35,7 +42,8 @@ import { mainMenu, customOptions } from '@/router/homeLinks'
                 </router-link>
             </li>
         </ul>
-        <div class="separator link--mobile-hide" v-if="mainMenu.accessLink.length > 0"></div>
+
+        <!-- <div class="separator link--mobile-hide" v-if="mainMenu.accessLink.length > 0"></div>
 
         <ul class="navbar__container">
             <li class="link" v-for="item in customOptions" :key="item.router">
@@ -44,7 +52,7 @@ import { mainMenu, customOptions } from '@/router/homeLinks'
                     <span class="link__text">{{ item.name }}</span>
                 </router-link>
             </li>
-        </ul>
+        </ul> -->
         <!-- <router-link to="/">
             <img src="" class="link__image--profile" alt="image profile">
         </router-link> -->
@@ -183,3 +191,4 @@ import { mainMenu, customOptions } from '@/router/homeLinks'
     }
 }
 </style>
+../composables/useHandleAuth

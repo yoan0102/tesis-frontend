@@ -14,7 +14,9 @@ const useHandleAuth = () => {
     }
   })
 
-  return {}
+  return {
+    authStore,
+  }
 }
 
 export default useHandleAuth

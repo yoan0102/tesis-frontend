@@ -8,7 +8,6 @@ const router = createRouter({
     {
       path: '/',
       component: () => import('@/home/layout/HomeLayout.vue'),
-      beforeEnter: authGuards,
       children: [
         {
           path: '',
@@ -18,6 +17,7 @@ const router = createRouter({
         {
           path: '/favoritas',
           name: 'favorites',
+          beforeEnter: authGuards,
           component: () => import('@/tracks/views/FavoritesView.vue'),
         },
         {
