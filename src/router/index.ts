@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { routesUsers } from '@/users/routes'
+import authGuards from '@/shared/guards/authGuards'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -7,34 +8,41 @@ const router = createRouter({
     {
       path: '/',
       component: () => import('@/home/layout/HomeLayout.vue'),
+      beforeEnter: authGuards,
       children: [
         {
           path: '',
           name: 'home',
-          component: () => import('@/home/views/LibraryView.vue')
+          component: () => import('@/home/views/LibraryView.vue'),
         },
         {
           path: '/favoritas',
           name: 'favorites',
-          component: () => import('@/tracks/views/FavoritesView.vue')
+          component: () => import('@/tracks/views/FavoritesView.vue'),
         },
         {
           path: '/search',
           name: 'search',
-          component: () => import('@/home/views/SearchView.vue')
+          component: () => import('@/home/views/SearchView.vue'),
         },
         {
           path: '/orietaciones-tecnicas',
           name: 'Guidelines',
-          component: () => import('@/home/views/Orientaciones.vue')
-        }
-      ]
+          component: () => import('@/home/views/OrientacionesView.vue'),
+        },
+      ],
     },
     {
       ...routesUsers,
-      path: '/users'
-    }
-  ]
+
+      path: '/users',
+    },
+    {
+      path: '/:pathMatch(.*)*',
+      name: 'not-found',
+      redirect: { name: 'home' },
+    },
+  ],
   // scrollBehavior(to, from, savedPosition) {
   //   console.log(to)
   //   return {

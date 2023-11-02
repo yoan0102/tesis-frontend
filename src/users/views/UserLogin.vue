@@ -4,13 +4,16 @@ import { Icon } from '@iconify/vue';
 import { useVuelidate } from '@vuelidate/core';
 import { required, email, minLength, helpers } from '@vuelidate/validators';
 import useLogin from '../composables/useLogin';
+import { useRouter } from 'vue-router';
 
 const { onLogin, isLoading } = useLogin()
+const router = useRouter()
 
 const loginForm = reactive({
   email: '',
   password: ''
 })
+
 
 const rules = {
   email: {
@@ -30,6 +33,7 @@ const v$ = useVuelidate(rules, loginForm)
 const onSubmit = async () => {
   if (!(await v$.value.$validate())) return
   await onLogin(loginForm.email, loginForm.password)
+  router.push({ name: 'home' })
 }
 
 </script>

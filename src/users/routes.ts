@@ -1,5 +1,6 @@
 import type { RouteRecordRaw } from 'vue-router'
 import UserLayout from './layouts/UserLayout.vue'
+import authGuards from '@/shared/guards/authGuards'
 
 export const routesUsers: RouteRecordRaw = {
   path: '/users',
@@ -9,12 +10,14 @@ export const routesUsers: RouteRecordRaw = {
     {
       path: 'login',
       name: 'login',
-      component: () => import('@/users/views/UserLogin.vue')
+      beforeEnter: authGuards,
+      component: () => import('@/users/views/UserLogin.vue'),
     },
     {
       path: 'register',
       name: 'register',
-      component: () => import('@/users/views/UserRegister.vue')
-    }
-  ]
+      beforeEnter: authGuards,
+      component: () => import('@/users/views/UserRegister.vue'),
+    },
+  ],
 }

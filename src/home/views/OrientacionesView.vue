@@ -5,7 +5,10 @@ import BasePlayListHeader from '@/shared/components/BasePlayListHeader.vue'
 <template>
     <BasePlayListHeader smallText="Orientaciones" icon="guitar-pick-outline" user-name="Yoan Estrada Blanco"
         title="Técnicas-Metodológicas" :trackTotal="206" />
-
+    <ul class="box is-flex is-justify-content-center sticky">
+        <li class="button is-primary"><a href="#requeriment">Requisitos</a></li>
+        <li class="button is-primary"><a href="#importance">Importancia</a></li>
+    </ul>
     <div class="content">
         <p class="is-size-5">
             Se ha dicho que la voz es el instrumento musical por excelencia, ella es
@@ -19,7 +22,7 @@ import BasePlayListHeader from '@/shared/components/BasePlayListHeader.vue'
             compositor, aunque el público que la recibe también participa de ella, la
             evalúa y la hace suya en dependencia de sus gustos e intereses.
         </p>
-        <section id="requariment" class="section">
+        <section id="requeriment" class="section">
             <h2 class="subtitle">Requisitos de la canción infantil</h2>
             <p class="is-size-5">
                 La canción infantil es la que está dirigida a los niños y las niñas, entre
@@ -181,5 +184,14 @@ import BasePlayListHeader from '@/shared/components/BasePlayListHeader.vue'
 .content {
     padding: 3rem;
     padding-bottom: 10rem;
+}
+
+.sticky {
+    position: sticky;
+    top: 2px;
+    width: 100%;
+    height: 80px;
+    margin: 0;
+    background-color: tomato;
 }
 </style>
