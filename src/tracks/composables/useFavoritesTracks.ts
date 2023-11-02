@@ -11,16 +11,20 @@ export const useFavoritesTracks = () => {
   const { tracks } = storeToRefs(tracksStore)
 
   const favoritesTracks = computed((): Track[] => {
-    return tracks.value.filter((item) => item)
+    return tracks.value.filter((item) => {
+      const userParse = user.value
+      console.log(userParse)
+      return JSON.parse(userParse).favorites.includes(item._id)
+    })
   })
-  const favorites = computed(() => {
-    if (!user.value && user.value!.favorites.length > 0) {
-      return tracks.value.filter((item) => user.value?.favorites.includes(item._id))
-    }
-    return tracks
-  })
+  // const favorites = computed(() => {
+  //   if (!user.value && user.value!.favorites.length > 0) {
+  //     return tracks.value.filter((item) => user.value?.favorites.includes(item._id))
+  //   }
+  //   return tracks
+  // })
 
   return {
-    favoritesTracks
+    favoritesTracks,
   }
 }
