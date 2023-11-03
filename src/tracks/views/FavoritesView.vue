@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import BasePlayListBody from '@/shared/components/BasePlayListBody.vue'
 import BasePlayListHeader from '@/shared/components/BasePlayListHeader.vue'
-import { useFavoritesTracks } from '../composables/useFavoritesTracks';
+import { useFavoritesTracks } from '@/shared/composables/useFavoritesTracks';
 const { favoritesTracks } = useFavoritesTracks()
 
 </script>
@@ -18,3 +18,4 @@ const { favoritesTracks } = useFavoritesTracks()
 </template>
 
 <style scoped lang="scss"></style>
+../../shared/composables/useFavoritesTracks

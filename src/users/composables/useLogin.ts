@@ -1,5 +1,9 @@
 import { toast } from 'vue3-toastify'
-import { loginService, refreshTokenService, logoutService } from '../services/auth.service'
+import {
+  loginService,
+  refreshTokenService,
+  logoutService,
+} from '../services/auth.service'
 import { useAuthStore } from '../store/authStore'
 import { useMutation } from '@tanstack/vue-query'
 import { storeToRefs } from 'pinia'
@@ -23,7 +27,7 @@ export default function useLogin() {
       },
       onError() {
         toast.error('Credentials Incorrect')
-      }
+      },
     }
   )
 
@@ -36,7 +40,7 @@ export default function useLogin() {
       },
       onError() {
         toast.error('Credentials Incorrect')
-      }
+      },
     }
   )
   const { mutate: mutateLogout } = useMutation(async () => logoutService(), {
@@ -45,7 +49,7 @@ export default function useLogin() {
     },
     onError() {
       toast.error('Up algo a salido mal intente cerrar sesión nuevamente')
-    }
+    },
   })
 
   async function onLogin(email: string, password: string) {
@@ -67,6 +71,6 @@ export default function useLogin() {
     isRefreshError,
     onLogin,
     refreshToken,
-    logout
+    logout,
   }
 }

@@ -6,31 +6,31 @@ export const mainMenu: {
     {
       name: 'Inicio',
       icon: 'mdi-light:home',
-      router: { name: 'home' }
+      router: { name: 'home' },
     },
     {
       name: 'Buscar',
       icon: 'mdi-search',
-      router: { name: 'search' }
+      router: { name: 'search' },
     },
     {
       name: 'Orientaciones',
       icon: 'mdi:guitar-pick',
-      router: { name: 'Guidelines' }
-    }
+      router: { name: 'Guidelines' },
+    },
   ],
   accessLink: [
-    {
-      name: 'Crear lista',
-      icon: 'mdi:plus-box-outline',
-      router: { name: 'home' }
-    },
+    // {
+    //   name: 'Crear lista',
+    //   icon: 'mdi:plus-box-outline',
+    //   router: { name: 'home' }
+    // },
     {
       name: 'Canciones que te gustan',
       icon: 'mdi:heart-outline',
-      router: { name: 'favorites' }
-    }
-  ]
+      router: { name: 'favorites' },
+    },
+  ],
 }
 
 export const customOptions: Array<any> = [

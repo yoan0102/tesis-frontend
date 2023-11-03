@@ -17,6 +17,6 @@ export const useTracksStore = defineStore('tracks', () => {
     },
     setTrackPlayed: (value: Track) => {
       track.value = value
-    }
+    },
   }
 })

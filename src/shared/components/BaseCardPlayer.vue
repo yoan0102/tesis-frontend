@@ -4,8 +4,10 @@ import BaseBtnLike from './BaseBtnLike.vue';
 import BaseRating from './BaseRating.vue';
 import { Track } from '../../interfaces/tracks';
 import { useTrackPlayed } from '../composables/useTrackPlayed';
+import { useFavoritesTracks } from '../composables/useFavoritesTracks';
 
 const { trackPlay } = useTrackPlayed()
+const { addFavorites } = useFavoritesTracks()
 const { track, mode } = withDefaults(
   defineProps<{
     track: Track
@@ -16,6 +18,10 @@ const { track, mode } = withDefaults(
     mode: 'small'
   }
 )
+
+const updateFavorite = async () => {
+  await addFavorites(track._id)
+}
 
 </script>
 
@@ -39,7 +45,7 @@ const { track, mode } = withDefaults(
           </p>
         </div>
         <div class="btns">
-          <BaseBtnLike icon="heart-outline" />
+          <BaseBtnLike icon="heart-outline" @click="updateFavorite" />
           <a :href="track.url" download="" class="btn">
             <Icon class="btn-play" icon="material-symbols:download" />
           </a>
