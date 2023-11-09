@@ -5,11 +5,13 @@ import { ref } from 'vue'
 export const useTracksStore = defineStore('tracks', () => {
   const tracks = ref<Track[]>([])
   const track = ref<Track | null>(null)
+  const favorites = ref<Track[]>([])
 
   return {
     //State
     tracks,
     track,
+    favorites,
     //Getters
     //Actions
     setTracks: (values: Track[]) => {
@@ -17,6 +19,9 @@ export const useTracksStore = defineStore('tracks', () => {
     },
     setTrackPlayed: (value: Track) => {
       track.value = value
+    },
+    setFavorites: (values: Track[]) => {
+      favorites.value = values
     },
   }
 })

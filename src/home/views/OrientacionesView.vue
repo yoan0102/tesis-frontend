@@ -1,14 +1,30 @@
 <script lang="ts" setup>
+import { Icon } from '@iconify/vue';
 import BasePlayListHeader from '@/shared/components/BasePlayListHeader.vue'
+import { useWindowScroll } from '@vueuse/core';
+import { watch, ref } from 'vue';
+
+const { x, y } = useWindowScroll()
+
+const display = ref<string>('none')
+
+watch(y, () => {
+    if (y.value > 200) {
+        display.value = 'flex'
+    } else {
+        display.value = 'none'
+
+    }
+})
 </script>
 
 <template>
-    <BasePlayListHeader smallText="Orientaciones" icon="guitar-pick-outline" user-name="Yoan Estrada Blanco"
+    <BasePlayListHeader id="content" smallText="Orientaciones" icon="guitar-pick-outline" user-name="Yoan Estrada Blanco"
         title="Técnicas-Metodológicas" :trackTotal="206" />
-    <ul class="box is-flex is-justify-content-center sticky">
+    <!-- <ul class="box is-flex is-justify-content-center sticky">
         <li class="button is-primary"><a href="#requeriment">Requisitos</a></li>
         <li class="button is-primary"><a href="#importance">Importancia</a></li>
-    </ul>
+    </ul> -->
     <div class="content">
         <p class="is-size-5">
             Se ha dicho que la voz es el instrumento musical por excelencia, ella es
@@ -177,7 +193,11 @@ import BasePlayListHeader from '@/shared/components/BasePlayListHeader.vue'
 
             </ul>
         </section>
+
     </div>
+    <a href="#content" class="btn is-primary">
+        <Icon icon="mingcute:up-fill" height="32" width="32" />
+    </a>
 </template>
 
 <style scoped lang="scss">
@@ -186,12 +206,37 @@ import BasePlayListHeader from '@/shared/components/BasePlayListHeader.vue'
     padding-bottom: 10rem;
 }
 
+.btn {
+    position: fixed;
+    display: v-bind(display);
+    justify-content: center;
+    right: 2rem;
+    bottom: 15%;
+    border: none;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background-color: var(--primary);
+    color: var(--white);
+    animation: up 1s forwards;
+
+}
+
+@keyframes up {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(-20px);
+    }
+}
+
 .sticky {
     position: sticky;
-    top: 2px;
+    top: 0px;
     width: 100%;
     height: 80px;
-    margin: 0;
-    background-color: tomato;
 }
 </style>
