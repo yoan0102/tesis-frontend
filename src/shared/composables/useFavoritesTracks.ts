@@ -1,4 +1,4 @@
-import { watch, ref } from 'vue'
+import { watch } from 'vue'
 import { useTracksStore } from '@/home/stores/tracksStore'
 import { useAuthStore } from '@/users/store/authStore'
 import { storeToRefs } from 'pinia'
@@ -12,7 +12,7 @@ export const useFavoritesTracks = () => {
   const authStore = useAuthStore()
   const { user } = storeToRefs(authStore)
 
-  const { isLoading, data } = useQuery({
+  const { isLoading } = useQuery({
     queryKey: ['favorites'],
     queryFn: async () => {
       const data = await getFavorites(user.value._id)

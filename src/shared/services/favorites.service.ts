@@ -8,5 +8,5 @@ export const addFavorite = async (id: string, favorite: string) => {
 
 export const getFavorites = async (id: string) => {
   const { data } = await baseAxios.get(`/users/favorites/${id}`)
-  return data.data.favorites[0]
+  return data.data.favorites.map((x: any) => x[0])
 }
