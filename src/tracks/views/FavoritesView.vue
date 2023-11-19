@@ -3,7 +3,11 @@ import BasePlayListBody from '@/shared/components/BasePlayListBody.vue'
 import BasePlayListHeader from '@/shared/components/BasePlayListHeader.vue'
 import { useFavorites } from '@/shared/composables/useFavorites'
 
-const { favorites } = useFavorites()
+const { favorites, removeFavorites } = useFavorites()
+
+const deleteFavorite = (id: string) => {
+  removeFavorites(id)
+}
 </script>
 
 <template>
@@ -14,7 +18,9 @@ const { favorites } = useFavorites()
     title="Canciones que te gustan"
     :trackTotal="206" />
   <template v-if="favorites.length > 0">
-    <BasePlayListBody :tracks="favorites" />
+    <BasePlayListBody
+      :tracks="favorites"
+      @on-delete-favorite="deleteFavorite" />
   </template>
   <template v-else>
     <h2 class="title has-text-centered mt-3">No tienes canciones preferidas</h2>

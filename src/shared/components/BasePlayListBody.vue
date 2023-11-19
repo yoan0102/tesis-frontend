@@ -5,6 +5,8 @@ import { Track } from '../../interfaces/tracks'
 import formatDate from '../utils/formatDate'
 import { useTrackPlayed } from '../composables/useTrackPlayed'
 
+defineEmits(['on-delete-favorite'])
+
 const { tracks } = defineProps<{
   tracks: Track[]
 }>()
@@ -68,7 +70,9 @@ const changeSort = (property: string) => {
       <li class="track-name-opacity">{{ formatDate(track.createdAt) }}</li>
 
       <li class="track-name-opacity">
-        <button class="button is-danger">
+        <button
+          class="button is-danger"
+          @click="$emit('on-delete-favorite', track._id)">
           <span class="icon is-small">
             <Icon icon="mdi:heart-broken" />
           </span>
