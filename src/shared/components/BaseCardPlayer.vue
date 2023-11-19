@@ -6,9 +6,11 @@ import BaseRating from './BaseRating.vue'
 import { Track } from '../../interfaces/tracks'
 import { useTrackPlayed } from '../composables/useTrackPlayed'
 import { useFavoritesTracks } from '../composables/useFavoritesTracks'
+import useLogin from '../../users/composables/useLogin'
 
 const { trackPlay } = useTrackPlayed()
 const { addFavorites } = useFavoritesTracks()
+const { user } = useLogin()
 const { track, mode } = withDefaults(
   defineProps<{
     track: Track
@@ -50,7 +52,7 @@ const { track, mode } = withDefaults(
           </p>
         </div>
         <div class="btns">
-          <VDropdown :distance="6">
+          <VDropdown :distance="6" v-if="!user">
             <BaseBtnLike icon="heart-outline" />
 
             <template #popper>
@@ -64,7 +66,10 @@ const { track, mode } = withDefaults(
               </div>
             </template>
           </VDropdown>
-          <BaseBtnLike icon="heart-outline" @click="addFavorites(track._id)" />
+          <BaseBtnLike
+            v-else
+            icon="heart-outline"
+            @click="addFavorites(track._id)" />
           <a :href="track.url" download="" class="btn">
             <Icon class="btn-play" icon="material-symbols:download" />
           </a>

@@ -26,10 +26,6 @@ export const useFavorites = () => {
     },
   })
 
-  watch(user, (data) => {
-    user.value = JSON.parse(data)
-  })
-
   return {
     isLoading,
     favorites,

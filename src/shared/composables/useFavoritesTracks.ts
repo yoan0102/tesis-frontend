@@ -18,7 +18,8 @@ export const useFavoritesTracks = () => {
     {
       onSuccess(data) {
         queryClient.invalidateQueries(['favorites'])
-        authStore.setUser(data.user)
+        console.log({ data })
+        authStore.setUser(data.userDb)
       },
       onError() {
         toast.error(
@@ -27,10 +28,6 @@ export const useFavoritesTracks = () => {
       },
     }
   )
-
-  watch(user, (data) => {
-    user.value = JSON.parse(data)
-  })
 
   const addFavorites = async (favorite: string) => {
     mutate(favorite)
