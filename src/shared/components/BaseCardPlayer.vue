@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import { Icon } from '@iconify/vue'
-import { Dropdown } from 'floating-vue'
 
 import BaseBtnLike from './BaseBtnLike.vue'
 import BaseRating from './BaseRating.vue'
