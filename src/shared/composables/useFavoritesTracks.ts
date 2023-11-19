@@ -9,6 +9,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/vue-query'
 export const useFavoritesTracks = () => {
   const queryClient = useQueryClient()
   const tracksStore = useTracksStore()
+  const { favorites } = storeToRefs(tracksStore)
   const authStore = useAuthStore()
   const { user } = storeToRefs(authStore)
 
@@ -51,7 +52,7 @@ export const useFavoritesTracks = () => {
 
   return {
     isLoading,
-    favoritesTracks: tracksStore.favorites,
+    favorites,
     addFavorites,
   }
 }

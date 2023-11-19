@@ -1,12 +1,12 @@
 <script lang="ts" setup>
-import TheSidebar from '@/shared/components/TheSidebar.vue';
+import TheSidebar from '@/shared/components/TheSidebar.vue'
 import TheMediaPLayer from '@/shared/components/TheMediaPLayer.vue'
-import MenuFloat from '@/shared/components/MenuFloat.vue';
+import MenuFloat from '@/shared/components/MenuFloat.vue'
 </script>
 
 <template>
   <div class="container columns is-clipped m-0">
-    <MenuFloat />
+    <!-- <MenuFloat /> -->
     <TheSidebar />
     <!-- <TheSidebar class="column is-one-fifth" /> -->
     <main class="main">

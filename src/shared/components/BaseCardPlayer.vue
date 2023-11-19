@@ -1,5 +1,7 @@
 <script lang="ts" setup>
 import { Icon } from '@iconify/vue'
+import { Dropdown } from 'floating-vue'
+
 import BaseBtnLike from './BaseBtnLike.vue'
 import BaseRating from './BaseRating.vue'
 import { Track } from '../../interfaces/tracks'
@@ -49,6 +51,20 @@ const { track, mode } = withDefaults(
           </p>
         </div>
         <div class="btns">
+          <VDropdown :distance="6">
+            <BaseBtnLike icon="heart-outline" />
+
+            <template #popper>
+              <div class="popper">
+                <p>Para poder dar me gusta debe acceder a la aplición</p>
+                <router-link
+                  :to="{ name: 'login' }"
+                  class="button is-small is-primary"
+                  >Accede aquí</router-link
+                >
+              </div>
+            </template>
+          </VDropdown>
           <BaseBtnLike icon="heart-outline" @click="addFavorites(track._id)" />
           <a :href="track.url" download="" class="btn">
             <Icon class="btn-play" icon="material-symbols:download" />
@@ -84,6 +100,16 @@ const { track, mode } = withDefaults(
 </template>
 
 <style scoped lang="scss">
+.popper {
+  max-width: 200px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  text-align: center;
+}
 .player-card {
   display: flex;
   justify-content: center;
