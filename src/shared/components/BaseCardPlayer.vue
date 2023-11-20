@@ -3,7 +3,7 @@ import { Icon } from '@iconify/vue'
 
 import BaseBtnLike from './BaseBtnLike.vue'
 import BaseRating from './BaseRating.vue'
-import { Track } from '../../interfaces/tracks'
+import type { Track } from '../../interfaces/tracks'
 import { useTrackPlayed } from '../composables/useTrackPlayed'
 import { useFavoritesTracks } from '../composables/useFavoritesTracks'
 import useLogin from '../../users/composables/useLogin'
@@ -17,7 +17,6 @@ const { track, mode } = withDefaults(
     mode: 'small' | 'big'
   }>(),
   {
-    track: null,
     mode: 'small',
   }
 )

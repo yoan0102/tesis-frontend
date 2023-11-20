@@ -57,42 +57,129 @@ const onSubmit = async () => {
       <span class="borderLine"></span>
       <form ref="form" @submit.prevent="onSubmit">
         <h2 class="title is-1">Upload Track</h2>
-        <div class="is-flex is-justify-content-between bg-primary">
-          <div class="inputBox mr-1">
-            <input
-              type="text"
-              v-model="createTrack.name"
-              @blur="v$.name.$touch" />
-            <span>Email</span>
-            <i></i>
+        <div class="is-flex is-justify-content-space-between">
+          <div class="is-flex is-flex-direction-column">
+            <div class="inputBox mr-1">
+              <input
+                type="text"
+                v-model="createTrack.name"
+                @blur="v$.name.$touch" />
+              <span>Nombre</span>
+              <i></i>
+            </div>
+
+            <span v-if="v$.name.$error">
+              <p
+                class="has-text-danger mt-2"
+                v-for="error in v$.name.$errors"
+                :key="error.$uid">
+                {{ error.$message }}
+              </p>
+            </span>
           </div>
 
-          <span v-if="v$.name.$error">
-            <p
-              class="has-text-danger mt-2"
-              v-for="error in v$.name.$errors"
-              :key="error.$uid">
-              {{ error.$message }}
-            </p>
-          </span>
-
-          <div class="inputBox">
-            <input
-              type="password"
-              v-model="createTrack.album"
-              @blur="v$.password.$touch" />
-            <span>Contraseña</span>
-            <i></i>
+          <div class="is-flex is-flex-direction-column">
+            <div class="inputBox">
+              <input
+                type="password"
+                v-model="createTrack.album"
+                @blur="v$.album.$touch" />
+              <span>Album</span>
+              <i></i>
+            </div>
+            <span v-if="v$.album.$error">
+              <p
+                class="has-text-danger mt-2"
+                v-for="error in v$.album.$errors"
+                :key="error.$uid">
+                {{ error.$message }}
+              </p>
+            </span>
           </div>
         </div>
-        <!-- <span v-if="v$.password.$error">
-          <p
-            class="has-text-danger mt-2"
-            v-for="error in v$.password.$errors"
-            :key="error.$uid">
-            {{ error.$message }}
-          </p>
-        </span> -->
+
+        <div class="is-flex is-justify-content-space-between">
+          <div class="is-flex is-flex-direction-column">
+            <div class="inputBox mr-1">
+              <input
+                type="text"
+                v-model="createTrack.artistName"
+                @blur="v$.artistName.$touch" />
+              <span>Nombre del Artista</span>
+              <i></i>
+            </div>
+
+            <span v-if="v$.artistName.$error">
+              <p
+                class="has-text-danger mt-2"
+                v-for="error in v$.artistName.$errors"
+                :key="error.$uid">
+                {{ error.$message }}
+              </p>
+            </span>
+          </div>
+
+          <div class="is-flex is-flex-direction-column">
+            <div class="inputBox">
+              <input
+                type="password"
+                v-model="createTrack.nationality"
+                @blur="v$.nationality.$touch" />
+              <span>Nacionalidad del artista</span>
+              <i></i>
+            </div>
+            <span v-if="v$.nationality.$error">
+              <p
+                class="has-text-danger mt-2"
+                v-for="error in v$.nationality.$errors"
+                :key="error.$uid">
+                {{ error.$message }}
+              </p>
+            </span>
+          </div>
+        </div>
+
+        <div class="is-flex is-justify-content-space-between">
+          <div class="is-flex is-flex-direction-column">
+            <div class="inputBox mr-1">
+              <input
+                type="text"
+                v-model="createTrack.artistName"
+                @blur="v$.artistName.$touch" />
+              <span>Nombre del Artista</span>
+              <i></i>
+            </div>
+
+            <span v-if="v$.artistName.$error">
+              <p
+                class="has-text-danger mt-2"
+                v-for="error in v$.artistName.$errors"
+                :key="error.$uid">
+                {{ error.$message }}
+              </p>
+            </span>
+          </div>
+
+          <div class="is-flex is-flex-direction-column">
+            <div class="inputBox">
+              <input
+                type="password"
+                v-model="createTrack.nationality"
+                @blur="v$.nationality.$touch" />
+              <span>Nacionalidad del artista</span>
+              <i></i>
+            </div>
+            <span v-if="v$.nationality.$error">
+              <p
+                class="has-text-danger mt-2"
+                v-for="error in v$.nationality.$errors"
+                :key="error.$uid">
+                {{ error.$message }}
+              </p>
+            </span>
+          </div>
+        </div>
+
         <div class="links">
           <a href="#">Cambiar Contraseña</a>
           <RouterLink :to="{ name: 'register' }">Signup</RouterLink>
@@ -117,8 +204,8 @@ const onSubmit = async () => {
 <style scoped lang="scss">
 .box {
   position: relative;
-  width: 580px;
-  height: 470px;
+  width: 800px;
+  height: 570px;
   background-color: #f3f3f3;
   border-radius: 8px;
   overflow: hidden;
@@ -201,7 +288,6 @@ const onSubmit = async () => {
       position: relative;
       width: 300px;
       margin-top: 35px;
-
       input {
         position: relative;
         width: 100%;

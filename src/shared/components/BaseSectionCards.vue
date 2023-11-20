@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import BaseCardPlayer from './BaseCardPlayer.vue';
-import { Track } from '../../interfaces/tracks';
+import BaseCardPlayer from './BaseCardPlayer.vue'
+import type { Track } from '../../interfaces/tracks'
 
 defineProps<{
   title: string
@@ -14,9 +14,12 @@ defineProps<{
     <!-- <h1 class="section--generic__title">{{ title }}</h1> -->
 
     <div class="player-zone">
-      <BaseCardPlayer v-for="track in dataTracks" :key="track._id" :track="track" :mode="mode" />
+      <BaseCardPlayer
+        v-for="track in dataTracks"
+        :key="track._id"
+        :track="track"
+        :mode="mode" />
     </div>
-
   </div>
 </template>
 
@@ -31,7 +34,6 @@ defineProps<{
   padding: 25px 5px;
   margin-top: 10%;
   width: 100%;
-
 }
 
 @media (min-width: 768px) {

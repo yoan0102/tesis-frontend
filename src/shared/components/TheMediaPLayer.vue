@@ -1,15 +1,14 @@
 <script lang="ts" setup>
 import { Icon } from '@iconify/vue'
 import { useTrackPlayed } from '../composables/useTrackPlayed'
-import { watchEffect, ref } from 'vue';
-import { nextTick } from 'process';
-import BaseBtnLike from './BaseBtnLike.vue';
+import { watchEffect, ref } from 'vue'
+import { nextTick } from 'process'
+import BaseBtnLike from './BaseBtnLike.vue'
 
 const progressBar = ref<HTMLSpanElement>()
 
-
-
-const { track,
+const {
+  track,
   audio,
   calculateTime,
   timeElapsed,
@@ -17,7 +16,7 @@ const { track,
   setPlayerStatus,
   togglePlayer,
   playerStatus,
-  playerPercentage
+  playerPercentage,
 } = useTrackPlayed()
 
 watchEffect(() => {
@@ -36,17 +35,16 @@ const ListenAllEvents = () => {
   audio.addEventListener('ended', setPlayerStatus, false)
 }
 
-const progressChange = (e) => {
+const progressChange = (e: any) => {
   audio.volume = e.target.value / 100
 }
 
-const handleProgressPlayer = (e) => {
+const handleProgressPlayer = (e: any) => {
   playerPercentage.value = e.target.value
   nextTick(() => {
     const percentage = (audio.duration * e.target.value) / 100
     audio.currentTime = percentage
   })
-
 }
 </script>
 
@@ -87,8 +85,13 @@ const handleProgressPlayer = (e) => {
           </div>
           <div class="media-linetime">
             <div class="time">{{ timeElapsed }}</div>
-            <input ref="progressBar" type="range" :value="playerPercentage" max="100" class="progress-bar"
-              @change="handleProgressPlayer">
+            <input
+              ref="progressBar"
+              type="range"
+              :value="playerPercentage"
+              max="100"
+              class="progress-bar"
+              @change="handleProgressPlayer" />
             <div class="time">{{ timeRemaining }}</div>
           </div>
         </div>
@@ -106,7 +109,13 @@ const handleProgressPlayer = (e) => {
           <button class="btn-media">
             <Icon icon="uil-volume" />
           </button>
-          <input type="range" min="0" max="100" value="100" class="volume-progress" @change="progressChange" />
+          <input
+            type="range"
+            min="0"
+            max="100"
+            value="100"
+            class="volume-progress"
+            @change="progressChange" />
         </div>
       </div>
     </div>
@@ -246,14 +255,17 @@ const handleProgressPlayer = (e) => {
           position: absolute;
           accent-color: var(--primary);
         }
-
-
       }
     }
   }
 }
 
-.media-player--wrapper .player-controls-inside .media-player--wrapper .player-controls-inside .media-linetime .time {
+.media-player--wrapper
+  .player-controls-inside
+  .media-player--wrapper
+  .player-controls-inside
+  .media-linetime
+  .time {
   padding: 0.5rem 0;
 }
 
@@ -267,7 +279,10 @@ const handleProgressPlayer = (e) => {
   background-color: var(--secondary);
 }
 
-.media-player--wrapper .player-controls-inside .media-linetime .time-progress-live {
+.media-player--wrapper
+  .player-controls-inside
+  .media-linetime
+  .time-progress-live {
   width: 0%;
   height: 5px;
   transition: all ease var(--animation-1);

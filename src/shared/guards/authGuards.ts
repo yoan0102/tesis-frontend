@@ -1,6 +1,11 @@
 import { useAuthStore } from '@/users/store/authStore'
+import type { NavigationGuardNext, RouteLocationNormalized } from 'vue-router'
 
-export default (to, from, next) => {
+export default (
+  to: RouteLocationNormalized,
+  from: RouteLocationNormalized,
+  next: NavigationGuardNext
+) => {
   const authStore = useAuthStore()
   if (to.name !== 'login' && !authStore.user) {
     return next({ name: 'login' })

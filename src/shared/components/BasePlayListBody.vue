@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 import { Icon } from '@iconify/vue'
-import { Track } from '../../interfaces/tracks'
+import type { Track } from '../../interfaces/tracks'
 import formatDate from '../utils/formatDate'
 import { useTrackPlayed } from '../composables/useTrackPlayed'
 
@@ -13,7 +13,10 @@ const { tracks } = defineProps<{
 
 const { trackPlay } = useTrackPlayed()
 
-const optionsSort = ref<{ property: string | null; order: string }>()
+const optionsSort = ref<{ property: string | null; order: string }>({
+  property: null,
+  order: 'asc',
+})
 // const trackOrder = ref<any[]>([])
 
 const changeSort = (property: string) => {

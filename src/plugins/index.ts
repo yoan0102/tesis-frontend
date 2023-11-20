@@ -7,7 +7,7 @@ import FloatingVue from 'floating-vue'
 
 // "jwt expired"
 
-export function registerPlugins(app) {
+export function registerPlugins(app: any) {
   VueQueryPlugin.install(app, {
     queryClientConfig: {
       defaultOptions: {
