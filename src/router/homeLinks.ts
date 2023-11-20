@@ -20,11 +20,11 @@ export const mainMenu: {
     },
   ],
   accessLink: [
-    // {
-    //   name: 'Crear lista',
-    //   icon: 'mdi:plus-box-outline',
-    //   router: { name: 'home' }
-    // },
+    {
+      name: 'Crear lista',
+      icon: 'mdi:music-note-plus',
+      router: { name: 'tracks-create' },
+    },
     {
       name: 'Canciones que te gustan',
       icon: 'mdi:heart-outline',

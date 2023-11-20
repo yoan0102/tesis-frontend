@@ -21,6 +21,12 @@ const router = createRouter({
           component: () => import('@/tracks/views/FavoritesView.vue'),
         },
         {
+          path: '/tracks/create',
+          name: 'tracks-create',
+          beforeEnter: authGuards,
+          component: () => import('@/tracks/views/TrackCreateView.vue'),
+        },
+        {
           path: '/search',
           name: 'search',
           component: () => import('@/home/views/SearchView.vue'),

@@ -18,8 +18,7 @@ export const useFavoritesTracks = () => {
     {
       onSuccess(data) {
         queryClient.invalidateQueries(['favorites'])
-        console.log({ data })
-        authStore.setUser(data.userDb)
+        authStore.setUser(data.user)
       },
       onError() {
         toast.error(

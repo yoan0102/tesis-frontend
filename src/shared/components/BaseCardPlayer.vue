@@ -66,10 +66,11 @@ const { track, mode } = withDefaults(
               </div>
             </template>
           </VDropdown>
-          <BaseBtnLike
-            v-else
-            icon="heart-outline"
-            @click="addFavorites(track._id)" />
+          <template v-else>
+            <BaseBtnLike
+              icon="heart-outline"
+              @click="addFavorites(track._id)" />
+          </template>
           <a :href="track.url" download="" class="btn">
             <Icon class="btn-play" icon="material-symbols:download" />
           </a>

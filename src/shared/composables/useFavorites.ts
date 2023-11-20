@@ -38,7 +38,6 @@ export const useFavorites = () => {
         toast.success('Se elimino la cación de favoritas')
         queryClient.invalidateQueries(['favorites'])
         authStore.setUser(data.user)
-        console.log(authStore.user)
       },
       onError() {
         toast.error(
