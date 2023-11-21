@@ -3,7 +3,6 @@ import { createRouter, createWebHistory } from 'vue-router'
 import { routesUsers } from '@/users/routes'
 import { routesAdmin } from '../admin/routes'
 import authGuards from '@/shared/guards/authGuards'
-import UserLayout from '@/users/layouts/UserLayout.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -45,7 +44,6 @@ const router = createRouter({
 
     {
       ...routesUsers,
-      path: '/users',
     },
     // {
     //   ...routesAdmin,
