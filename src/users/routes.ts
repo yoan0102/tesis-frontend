@@ -5,7 +5,7 @@ import authGuards from '@/shared/guards/authGuards'
 export const routesUsers: RouteRecordRaw = {
   path: '/users',
   name: 'users',
-  component: UserLayout,
+  component: () => import('./layouts/UserLayout.vue'),
   children: [
     {
       path: 'login',
