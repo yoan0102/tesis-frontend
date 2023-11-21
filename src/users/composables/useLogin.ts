@@ -1,9 +1,5 @@
 import { toast } from 'vue3-toastify'
-import {
-  loginService,
-  refreshTokenService,
-  logoutService,
-} from '../services/auth.service'
+import { loginService, refreshTokenService } from '../services/auth.service'
 import { useAuthStore } from '../store/authStore'
 import { useMutation } from '@tanstack/vue-query'
 import { storeToRefs } from 'pinia'

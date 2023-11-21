@@ -15,7 +15,7 @@ const registerForm = reactive({
   passwordCheck: '',
 })
 
-const passwordChek = (value) => registerForm.password === value
+const passwordChek = (value: string) => registerForm.password === value
 
 const rules = {
   name: {
