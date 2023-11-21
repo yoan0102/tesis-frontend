@@ -5,7 +5,8 @@ import { routesAdmin } from '../admin/routes'
 import authGuards from '@/shared/guards/authGuards'
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  //import.meta.env.BASE_URL
+  history: createWebHistory(),
   routes: [
     {
       path: '/',
