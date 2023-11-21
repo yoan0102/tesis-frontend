@@ -1,7 +1,4 @@
 import axios from 'axios'
-import { useRouter } from 'vue-router'
-
-const router = useRouter()
 
 export const baseAxios = axios.create({
   baseURL: import.meta.env.VITE_BASE_URL_API,

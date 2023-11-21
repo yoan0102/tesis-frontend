@@ -1,19 +1,73 @@
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import TheSidebarAdmin from '../components/TheSidebarAdmin.vue'
+</script>
 
 <template>
-  <div class="container">
-    <RouterView />
+  <div class="container columns is-clipped m-0">
+    <nav class="navbar is-fixed-top box-shadow-y p-3">
+      <div class="navbar-brand">
+        <a
+          role="button"
+          class="navbar-burger toggler"
+          aria-label="menu"
+          aria-expanded="false">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+
+        <a href="#" class="navbar-item has-text-weight-bold has-text-black">
+          Admin Dashboard
+        </a>
+        <a
+          role="button"
+          class="navbar-burger nav-toggler"
+          aria-label="menu"
+          aria-expanded="false">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+      </div>
+      <div class="navbar-menu has-background-white">
+        <div class="navbar-start">
+          <a href="#" class="navbar-item">
+            <i class="fas fa-home icon"></i> Home
+          </a>
+          <a href="#" class="navbar-item"> About </a>
+          <a href="#" class="navbar-item"> Features </a>
+          <a href="#" class="navbar-item">Pricing</a>
+        </div>
+        <div class="navbar-end">
+          <a href="#" class="navbar-item"> Notifications </a>
+          <div class="navbar-item has-dropdown is-hoverable">
+            <a href="#" class="navbar-link"> Admin </a>
+            <div class="navbar-dropdown is-right">
+              <a href="#" class="navbar-item"> Profile </a>
+              <a href="#" class="navbar-item">Settings</a>
+              <hr class="navbar-divider" />
+              <a href="#" class="navbar-item">Log Out</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <TheSidebarAdmin />
+
+    <main class="main">
+      <RouterView />
+    </main>
   </div>
+
+  <RouterView />
 </template>
 
 <style scoped lang="scss">
 .container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
   min-width: 100vw;
-  background-color: #23242a;
+  min-height: 100vh;
+  position: relative;
 }
 
 .px-1,

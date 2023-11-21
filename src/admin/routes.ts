@@ -3,21 +3,22 @@ import authGuards from '@/shared/guards/authGuards'
 import AdminLayout from './layouts/AdminLayout.vue'
 
 export const routesAdmin: RouteRecordRaw = {
-  path: '/users',
-  name: 'users',
+  path: '/admin',
+  name: 'admin',
   component: AdminLayout,
   beforeEnter: authGuards,
   children: [
     {
-      path: 'login',
-      name: 'login',
+      path: 'users',
+      name: 'admin-users',
 
-      component: () => import('@/users/views/UserLogin.vue'),
+      component: () => import('@/admin/tracks/views/AdminTracksPublish.vue'),
     },
     {
-      path: 'register',
-      name: 'register',
-      component: () => import('@/users/views/UserRegister.vue'),
+      path: 'tracks',
+      name: 'admin-tracks',
+
+      component: () => import('@/admin/tracks/views/AdminTracksPublish.vue'),
     },
   ],
 }
