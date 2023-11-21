@@ -14,7 +14,7 @@ export const useAuthStore = defineStore('auth', () => {
   const token = useLocalStorage<string>('token', null)
   const expiresIn = ref<number>()
 
-  const setUser = (value: User) => {
+  const setUser = (value: User | null) => {
     user.value = value
   }
   const setToken = (value: string) => {
@@ -23,6 +23,10 @@ export const useAuthStore = defineStore('auth', () => {
 
   const setExpiresIn = (value: number) => {
     expiresIn.value = value
+  }
+
+  function $reset() {
+    user.value = null
   }
 
   return {
@@ -35,5 +39,6 @@ export const useAuthStore = defineStore('auth', () => {
     setUser,
     setToken,
     setExpiresIn,
+    $reset,
   }
 })

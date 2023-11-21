@@ -43,14 +43,6 @@ export default function useLogin() {
       },
     }
   )
-  const { mutate: mutateLogout } = useMutation(async () => logoutService(), {
-    onSuccess() {
-      router.replace({ name: 'home' })
-    },
-    onError() {
-      toast.error('Up algo a salido mal intente cerrar sesión nuevamente')
-    },
-  })
 
   async function onLogin(email: string, password: string) {
     loginMutate({ email, password })
@@ -61,7 +53,7 @@ export default function useLogin() {
   }
 
   async function logout() {
-    mutateLogout()
+    authStore.$reset()
   }
 
   return {

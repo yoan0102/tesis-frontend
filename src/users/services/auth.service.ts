@@ -9,8 +9,3 @@ export async function refreshTokenService() {
   const { data } = await baseAxios.get('/users/refresh')
   return data
 }
-
-export async function logoutService() {
-  const { data } = await baseAxios.get('/users/logout')
-  return data
-}

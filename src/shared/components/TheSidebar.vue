@@ -1,9 +1,15 @@
 <script lang="ts" setup>
 import { Icon } from '@iconify/vue'
-import { mainMenu, customOptions } from '@/router/homeLinks'
+import { mainMenu } from '@/router/homeLinks'
 import { useAuthStore } from '@/users/store/authStore'
+import useLogin from '@/users/composables/useLogin'
 
 const authStore = useAuthStore()
+const { logout } = useLogin()
+
+const onLogout = () => {
+  logout()
+}
 </script>
 
 <template>
@@ -44,8 +50,26 @@ const authStore = useAuthStore()
       </li>
     </ul>
 
+    <div class="separator link--mobile-hide" v-if="authStore.user"></div>
+
     <div class="navbar__container bottom">
-      <button class="button is-primary">SignIn</button>
+      <template v-if="!authStore.user">
+        <router-link :to="{ name: 'login' }" class="button is-primary"
+          >Acceder</router-link
+        >
+        <router-link
+          :to="{ name: 'register' }"
+          class="button is-outlined is-primary"
+          >Registrate</router-link
+        >
+      </template>
+      <button
+        v-else
+        :to="{ name: 'login' }"
+        class="button is-primary"
+        @click="onLogout">
+        Logout
+      </button>
     </div>
 
     <!-- <div class="separator link--mobile-hide" v-if="mainMenu.accessLink.length > 0"></div>

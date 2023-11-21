@@ -30,14 +30,17 @@ export const useFavorites = () => {
     },
     onError(error: any) {
       if (error.response && error.response.data.error === 'jwt expired') {
-        router.push({ name: 'login' })
+        tracksStore.setFavorites([])
+        authStore.setUser(null)
+        router.push({ name: 'home' })
+        setTimeout(() => {
+          toast.error(
+            'Ups Ocurrio un error y debe volver a loguearse para acceder a las canciones favoritas'
+          )
+        }, 500)
+        return
       }
-
-      setTimeout(() => {
-        toast.error(
-          'Ups Ocurrio un error y no se cargo las canciones favoritas'
-        )
-      }, 500)
+      toast.error('Ups Ocurrio un error y no se cargo las canciones favoritas')
     },
   })
 
