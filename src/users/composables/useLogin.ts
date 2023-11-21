@@ -54,6 +54,7 @@ export default function useLogin() {
 
   async function logout() {
     authStore.$reset()
+    router.push({ name: 'home' })
   }
 
   return {

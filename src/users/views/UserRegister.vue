@@ -1,29 +1,135 @@
 <script setup lang="ts">
-import { RouterLink } from 'vue-router'
+import { RouterLink, useRouter } from 'vue-router'
+import useRegister from '../composables/useRegister'
+import { reactive } from 'vue'
+import { email, helpers, minLength, required } from '@vuelidate/validators'
+import { useVuelidate } from '@vuelidate/core'
+
+const { onRegister } = useRegister()
+const router = useRouter()
+
+const registerForm = reactive({
+  name: '',
+  email: '',
+  password: '',
+  passwordCheck: '',
+})
+
+const passwordChek = (value) => registerForm.password === value
+
+const rules = {
+  name: {
+    required: helpers.withMessage('El nombre es requerido', required),
+    minLength: helpers.withMessage(
+      'El nombre debe tener al menos 4 caracteres',
+      minLength(4)
+    ),
+  },
+  email: {
+    required: helpers.withMessage('El email es requerido', required),
+    email: helpers.withMessage('El formato no es el de un email valido', email),
+  },
+  password: {
+    required: helpers.withMessage('El password es requerido', required),
+    minLength: helpers.withMessage(
+      'El password debe tener al menos 6 caracteres',
+      minLength(6)
+    ),
+  },
+  passwordCheck: {
+    required: helpers.withMessage('El password es requerido', required),
+    passwordChek: helpers.withMessage(
+      'La confirmación de la contraseña debe ser igual',
+      passwordChek
+    ),
+  },
+}
+
+const v$ = useVuelidate(rules, registerForm)
+
+const onSubmit = async () => {
+  if (!(await v$.value.$validate())) return
+  await onRegister(registerForm.name, registerForm.email, registerForm.password)
+  // router.push({ name: 'home' })
+}
 </script>
 
 <template>
   <div class="box">
     <span class="borderLine"></span>
-    <form>
+    <form @submit.prevent="onSubmit">
       <h2 class="title is-1">Registrate</h2>
       <div class="inputBox">
-        <input type="text" required />
+        <input
+          type="text"
+          required
+          v-model="registerForm.name"
+          @blur="v$.name.$touch" />
         <span>Nombre</span>
         <i></i>
       </div>
+      <span v-if="v$.name.$error">
+        <p
+          class="has-text-danger mt-2"
+          v-for="error in v$.name.$errors"
+          :key="error.$uid">
+          {{ error.$message }}
+        </p>
+      </span>
       <div class="inputBox">
-        <input type="text" required />
+        <input
+          type="text"
+          required
+          v-model="registerForm.email"
+          @blur="v$.email.$touch" />
         <span>Email</span>
         <i></i>
       </div>
+
+      <span v-if="v$.email.$error">
+        <p
+          class="has-text-danger mt-2"
+          v-for="error in v$.email.$errors"
+          :key="error.$uid">
+          {{ error.$message }}
+        </p>
+      </span>
       <div class="inputBox">
-        <input type="password" required />
+        <input
+          type="password"
+          required
+          v-model="registerForm.password"
+          @blur="v$.password.$touch" />
         <span>Contraseña</span>
         <i></i>
       </div>
+      <span v-if="v$.password.$error">
+        <p
+          class="has-text-danger mt-2"
+          v-for="error in v$.password.$errors"
+          :key="error.$uid">
+          {{ error.$message }}
+        </p>
+      </span>
+
+      <div class="inputBox">
+        <input
+          type="password"
+          required
+          v-model="registerForm.passwordCheck"
+          @blur="v$.passwordCheck.$touch" />
+        <span>Confirmar Contraseña</span>
+        <i></i>
+      </div>
+      <span v-if="v$.passwordCheck.$error">
+        <p
+          class="has-text-danger mt-2"
+          v-for="error in v$.passwordCheck.$errors"
+          :key="error.$uid">
+          {{ error.$message }}
+        </p>
+      </span>
       <div class="links">
-        <a href="#">Cambiar Contraseña</a>
         <RouterLink :to="{ name: 'login' }">Signin</RouterLink>
       </div>
 
@@ -36,7 +142,7 @@ import { RouterLink } from 'vue-router'
 .box {
   position: relative;
   width: 380px;
-  height: 520px;
+  height: 700px;
   background-color: #1c1c1c;
   border-radius: 8px;
   overflow: hidden;
@@ -47,7 +153,14 @@ import { RouterLink } from 'vue-router'
     left: -50%;
     width: 380px;
     height: 420px;
-    background-image: linear-gradient(0deg, transparent, transparent, #45f3ff, #45f3ff, #45f3ff);
+    background-image: linear-gradient(
+      0deg,
+      transparent,
+      transparent,
+      #45f3ff,
+      #45f3ff,
+      #45f3ff
+    );
     z-index: 1;
     transform-origin: bottom right;
     animation: animate 6s linear infinite;
@@ -59,7 +172,14 @@ import { RouterLink } from 'vue-router'
     left: -50%;
     width: 380px;
     height: 420px;
-    background-image: linear-gradient(0deg, transparent, transparent, #45f3ff, #45f3ff, #45f3ff);
+    background-image: linear-gradient(
+      0deg,
+      transparent,
+      transparent,
+      #45f3ff,
+      #45f3ff,
+      #45f3ff
+    );
     z-index: 1;
     transform-origin: bottom right;
     animation: animate 6s linear infinite;
