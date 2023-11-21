@@ -55,7 +55,7 @@ const onLogout = () => {
     <div class="navbar__container bottom">
       <template v-if="!authStore.user">
         <router-link
-          :to="{ name: 'login', replace: true }"
+          :to="{ path: '/users/login', replace: true }"
           class="button is-primary"
           >Acceder</router-link
         >
