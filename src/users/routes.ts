@@ -1,5 +1,4 @@
 import type { RouteRecordRaw } from 'vue-router'
-import UserLayout from './layouts/UserLayout.vue'
 import authGuards from '@/shared/guards/authGuards'
 
 export const routesUsers: RouteRecordRaw = {

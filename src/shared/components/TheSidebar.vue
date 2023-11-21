@@ -54,11 +54,13 @@ const onLogout = () => {
 
     <div class="navbar__container bottom">
       <template v-if="!authStore.user">
-        <router-link :to="{ name: 'login' }" class="button is-primary"
+        <router-link
+          :to="{ name: 'login', replace: true }"
+          class="button is-primary"
           >Acceder</router-link
         >
         <router-link
-          :to="{ name: 'register' }"
+          :to="{ name: 'register', replace: true }"
           class="button is-outlined is-primary"
           >Registrate</router-link
         >
