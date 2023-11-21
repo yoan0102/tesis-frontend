@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import TheSidebar from '@/shared/components/TheSidebar.vue'
 import TheMediaPLayer from '@/shared/components/TheMediaPLayer.vue'
-import MenuFloat from '@/shared/components/MenuFloat.vue'
+// import MenuFloat from '@/shared/components/MenuFloat.vue'
 </script>
 
 <template>

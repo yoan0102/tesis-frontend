@@ -1,11 +1,16 @@
 import type { RouteRecordRaw } from 'vue-router'
 import authGuards from '@/shared/guards/authGuards'
+import UserLayout from './layouts/UserLayout.vue'
 
 export const routesUsers: RouteRecordRaw = {
   path: '/users',
   name: 'users',
-  component: () => import('./layouts/UserLayout.vue'),
+  component: UserLayout,
   children: [
+    {
+      path: '',
+      redirect: { name: 'login' },
+    },
     {
       path: 'login',
       name: 'login',

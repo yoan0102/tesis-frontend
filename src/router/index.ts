@@ -44,6 +44,7 @@ const router = createRouter({
 
     {
       ...routesUsers,
+      path: '/users',
     },
     // {
     //   ...routesAdmin,

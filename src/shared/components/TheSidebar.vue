@@ -1,8 +1,10 @@
 <script lang="ts" setup>
 import { Icon } from '@iconify/vue'
+
 import { mainMenu } from '@/router/homeLinks'
 import { useAuthStore } from '@/users/store/authStore'
 import useLogin from '@/users/composables/useLogin'
+import { RouterLink } from 'vue-router'
 
 const authStore = useAuthStore()
 const { logout } = useLogin()
@@ -15,13 +17,13 @@ const onLogout = () => {
 <template>
   <nav class="navbar">
     <div class="navbar__logo logo">
-      <router-link to="/" class="logo__image">
+      <RouterLink to="/" class="logo__image">
         <h1>Vamos a cantar</h1>
-      </router-link>
-      <router-link to="/" class="logo__isotype">
+      </RouterLink>
+      <RouterLink to="/" class="logo__isotype">
         <span>V</span>
         <span>C</span>
-      </router-link>
+      </RouterLink>
     </div>
     <div class="separator link--mobile-hide"></div>
 
@@ -30,10 +32,10 @@ const onLogout = () => {
         class="link"
         v-for="item in mainMenu.defaultOptions"
         :key="item.router">
-        <router-link :to="{ name: item.router.name }">
+        <RouterLink :to="{ name: item.router.name }">
           <Icon :icon="item.icon" class="is-size-3" />
           <span class="link__text">{{ item.name }}</span>
-        </router-link>
+        </RouterLink>
       </li>
     </ul>
 
@@ -43,10 +45,10 @@ const onLogout = () => {
       class="navbar__container"
       v-if="mainMenu.accessLink.length > 0 && authStore.user">
       <li class="link" v-for="item in mainMenu.accessLink" :key="item.router">
-        <router-link :to="{ name: item.router.name }">
+        <RouterLink :to="{ name: item.router.name }">
           <Icon :icon="item.icon" class="is-size-3" />
           <span class="link__text">{{ item.name }}</span>
-        </router-link>
+        </RouterLink>
       </li>
     </ul>
 
@@ -54,13 +56,13 @@ const onLogout = () => {
 
     <div class="navbar__container bottom">
       <template v-if="!authStore.user">
-        <router-link :to="{ path: '/users/login' }" class="button is-primary"
-          >Acceder</router-link
+        <RouterLink :to="{ path: '/users/login' }" class="button is-primary"
+          >Acceder</RouterLink
         >
-        <router-link
+        <RouterLink
           :to="{ name: 'register' }"
           class="button is-outlined is-primary"
-          >Registrate</router-link
+          >Registrate</RouterLink
         >
       </template>
       <button
