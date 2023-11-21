@@ -7,12 +7,15 @@ import {
 } from '../services/favorites.service'
 import { toast } from 'vue3-toastify'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/vue-query'
+import { useRouter } from 'vue-router'
 
 export const useFavorites = () => {
   const tracksStore = useTracksStore()
   const { favorites } = storeToRefs(tracksStore)
   const authStore = useAuthStore()
   const { user } = storeToRefs(authStore)
+
+  const router = useRouter()
 
   const queryClient = useQueryClient()
 
@@ -25,8 +28,16 @@ export const useFavorites = () => {
     onSuccess(data) {
       tracksStore.setFavorites(data)
     },
-    onError() {
-      toast.error('Ups Ocurrio un error y no se cargo las canciones favoritas')
+    onError(error: any) {
+      if (error.response && error.response.data.error === 'jwt expired') {
+        router.push({ name: 'login' })
+      }
+
+      setTimeout(() => {
+        toast.error(
+          'Ups Ocurrio un error y no se cargo las canciones favoritas'
+        )
+      }, 500)
     },
   })
 
