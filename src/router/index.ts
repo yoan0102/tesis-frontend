@@ -1,4 +1,8 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import {
+  createRouter,
+  createWebHashHistory,
+  createWebHistory,
+} from 'vue-router'
 
 import { routesUsers } from '@/users/routes'
 import { routesAdmin } from '../admin/routes'
@@ -6,7 +10,8 @@ import authGuards from '@/shared/guards/authGuards'
 
 const router = createRouter({
   //import.meta.env.BASE_URL
-  history: createWebHistory(),
+  // history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHashHistory(),
   routes: [
     {
       path: '/',
