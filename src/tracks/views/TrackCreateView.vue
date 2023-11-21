@@ -3,6 +3,9 @@ import { reactive, ref } from 'vue'
 import { Icon } from '@iconify/vue'
 import { useVuelidate } from '@vuelidate/core'
 import { required, helpers } from '@vuelidate/validators'
+import useLogin from '../../users/composables/useLogin'
+
+const { user } = useLogin()
 
 const createTrack = reactive({
   name: '',
@@ -15,8 +18,10 @@ const createTrack = reactive({
   durationEnd: 270,
   gender: '',
   release_date: '',
-  user_Id: '',
+  user_Id: user.value._id,
 })
+
+const numbers = helpers.regex(/^[0-9]*$/)
 
 const rules = {
   name: {
@@ -31,6 +36,9 @@ const rules = {
       required
     ),
   },
+  gender: {
+    required: helpers.withMessage('Escoger un género es requerido', required),
+  },
   nationality: {
     required: helpers.withMessage('La nacionalidad es requerida', required),
   },
@@ -39,11 +47,23 @@ const rules = {
       'El tiempo final de la canción es requerido',
       required
     ),
+    numbers: helpers.withMessage(
+      'La duración tiene que ser un número',
+      numbers
+    ),
   },
 }
 
 const v$ = useVuelidate(rules, createTrack)
+
 const form = ref()
+const trackFile = ref()
+const onTrackInput = (event: any) => {
+  const file = event.target.files[0]
+  console.log({ file })
+  trackFile.value = file
+  console.log(trackFile.value)
+}
 const onSubmit = async () => {
   if (!(await v$.value.$validate())) return
   const trackForm = new FormData(form.value)
@@ -57,6 +77,63 @@ const onSubmit = async () => {
       <span class="borderLine"></span>
       <form ref="form" @submit.prevent="onSubmit">
         <h2 class="title is-1">Upload Track</h2>
+
+        <div class="is-flex is-justify-content-space-between">
+          <div class="is-flex is-flex-direction-column">
+            <div class="file has-name is-boxed">
+              <label class="file-label">
+                <input class="file-input" type="file" name="track" />
+                <span class="file-cta">
+                  <span class="file-icon is-size-3">
+                    <Icon icon="mdi:upload" />
+                  </span>
+                  <span class="file-label">Subir canción </span>
+                </span>
+                <span class="file-name">
+                  {{ trackFile }}
+                </span>
+              </label>
+            </div>
+
+            <!-- <span v-if="v$.name.$error">
+              <p
+                class="has-text-danger mt-2"
+                v-for="error in v$.name.$errors"
+                :key="error.$uid">
+                {{ error.$message }}
+              </p>
+            </span> -->
+          </div>
+
+          <div class="is-flex is-flex-direction-column">
+            <div class="file has-name is-boxed">
+              <label class="file-label">
+                <input
+                  class="file-input"
+                  type="file"
+                  name="resume"
+                  @input="onTrackInput"
+                  accept="image/png, image/jpeg" />
+                <span class="file-cta">
+                  <span class="file-icon is-size-3">
+                    <Icon icon="mdi:upload" />
+                  </span>
+                  <span class="file-label">Subir cover de la canción</span>
+                </span>
+                <span class="file-name"> {{ form }} </span>
+              </label>
+            </div>
+            <span v-if="v$.album.$error">
+              <p
+                class="has-text-danger mt-2"
+                v-for="error in v$.album.$errors"
+                :key="error.$uid">
+                {{ error.$message }}
+              </p>
+            </span>
+          </div>
+        </div>
+
         <div class="is-flex is-justify-content-space-between">
           <div class="is-flex is-flex-direction-column">
             <div class="inputBox mr-1">
@@ -142,18 +219,49 @@ const onSubmit = async () => {
         <div class="is-flex is-justify-content-space-between">
           <div class="is-flex is-flex-direction-column">
             <div class="inputBox mr-1">
+              <input type="text" v-model="createTrack.nickname" />
+              <span>NickName del Artista</span>
+              <i></i>
+            </div>
+          </div>
+
+          <div class="is-flex is-flex-direction-column">
+            <span class="mt-3 is-size-7">Género de la canción</span>
+            <div class="inputBox">
+              <div class="inputSelect">
+                <select v-model="createTrack.gender">
+                  <option value="inedita">Inedita</option>
+                  <option value="popular">Popular</option>
+                  <option value="educativa">Educativa</option>
+                </select>
+              </div>
+            </div>
+            <span v-if="v$.gender.$error">
+              <p
+                class="has-text-danger mt-2"
+                v-for="error in v$.gender.$errors"
+                :key="error.$uid">
+                {{ error.$message }}
+              </p>
+            </span>
+          </div>
+        </div>
+
+        <div class="is-flex is-justify-content-space-between">
+          <div class="is-flex is-flex-direction-column">
+            <div class="inputBox mr-1">
               <input
                 type="text"
-                v-model="createTrack.artistName"
-                @blur="v$.artistName.$touch" />
-              <span>Nombre del Artista</span>
+                v-model="createTrack.durationEnd"
+                @blur="v$.durationEnd.$touch" />
+              <span>Tiempo final de la canción</span>
               <i></i>
             </div>
 
-            <span v-if="v$.artistName.$error">
+            <span v-if="v$.durationEnd.$error">
               <p
                 class="has-text-danger mt-2"
-                v-for="error in v$.artistName.$errors"
+                v-for="error in v$.durationEnd.$errors"
                 :key="error.$uid">
                 {{ error.$message }}
               </p>
@@ -163,31 +271,26 @@ const onSubmit = async () => {
           <div class="is-flex is-flex-direction-column">
             <div class="inputBox">
               <input
-                type="password"
-                v-model="createTrack.nationality"
-                @blur="v$.nationality.$touch" />
-              <span>Nacionalidad del artista</span>
+                type="date"
+                v-model="createTrack.release_date"
+                @blur="v$.release_date.$touch" />
+              <span>La fecha de creación de la cacnción</span>
               <i></i>
             </div>
-            <span v-if="v$.nationality.$error">
+            <!-- <span v-if="v$.release_date.$error">
               <p
                 class="has-text-danger mt-2"
-                v-for="error in v$.nationality.$errors"
+                v-for="error in v$.release_date.$errors"
                 :key="error.$uid">
                 {{ error.$message }}
               </p>
-            </span>
+            </span> -->
           </div>
-        </div>
-
-        <div class="links">
-          <a href="#">Cambiar Contraseña</a>
-          <RouterLink :to="{ name: 'register' }">Signup</RouterLink>
         </div>
 
         <button
           type="submit"
-          class="button flex justify-spacebettewn is-primary">
+          class="button flex justify-spacebettewn is-primary mt-5">
           <Icon
             v-if="true"
             icon="mdi:content-save-plus"
@@ -202,10 +305,23 @@ const onSubmit = async () => {
 </template>
 
 <style scoped lang="scss">
+.inputSelect {
+  width: 100%;
+  option {
+    padding: 2rem;
+    font-size: 1rem;
+    text-align: center;
+    width: 100%;
+    &:focus,
+    &:active {
+      border: none;
+    }
+  }
+}
 .box {
   position: relative;
   width: 800px;
-  height: 570px;
+  height: 770px;
   background-color: #f3f3f3;
   border-radius: 8px;
   overflow: hidden;
@@ -331,6 +447,12 @@ const onSubmit = async () => {
             opacity: 0.8;
           }
         }
+      }
+
+      select {
+        width: 100%;
+        border: none;
+        border-bottom: 1px solid #ccc;
       }
 
       span {
