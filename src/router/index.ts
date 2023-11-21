@@ -40,15 +40,15 @@ const router = createRouter({
         },
       ],
     },
+
     {
       ...routesUsers,
-
       path: '/users',
     },
-    {
-      ...routesAdmin,
-      path: '/admin',
-    },
+    // {
+    //   ...routesAdmin,
+    //   path: '/admin',
+    // },
     {
       path: '/:pathMatch(.*)*',
       name: 'not-found',
