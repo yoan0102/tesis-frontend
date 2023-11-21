@@ -59,15 +59,12 @@ const v$ = useVuelidate(rules, createTrack)
 const form = ref()
 const trackFile = ref()
 const onTrackInput = (event: any) => {
-  const file = event.target.files[0]
-  console.log({ file })
-  trackFile.value = file
-  console.log(trackFile.value)
+  // const file = event.target.files[0]
+  // trackFile.value = file
 }
 const onSubmit = async () => {
   if (!(await v$.value.$validate())) return
   const trackForm = new FormData(form.value)
-  console.log(trackForm)
 }
 </script>
 
