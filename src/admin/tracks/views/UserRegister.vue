@@ -1,36 +1,56 @@
 <script setup lang="ts">
+import { RouterLink, useRouter } from 'vue-router'
+import useRegister from '../composables/useRegister'
 import { reactive } from 'vue'
-import { Icon } from '@iconify/vue'
+import { email, helpers, minLength, required } from '@vuelidate/validators'
 import { useVuelidate } from '@vuelidate/core'
-import { required, email, minLength, helpers } from '@vuelidate/validators'
-import useLogin from '../composables/useLogin'
-import { useRouter } from 'vue-router'
 
-const { onLogin, isLoading } = useLogin()
+const { onRegister } = useRegister()
 const router = useRouter()
 
-const loginForm = reactive({
+const registerForm = reactive({
+  name: '',
   email: '',
   password: '',
+  passwordCheck: '',
 })
 
+const passwordChek = (value) => registerForm.password === value
+
 const rules = {
+  name: {
+    required: helpers.withMessage('El nombre es requerido', required),
+    minLength: helpers.withMessage(
+      'El nombre debe tener al menos 4 caracteres',
+      minLength(4)
+    ),
+  },
   email: {
     required: helpers.withMessage('El email es requerido', required),
     email: helpers.withMessage('El formato no es el de un email valido', email),
   },
   password: {
     required: helpers.withMessage('El password es requerido', required),
-    minLength: minLength(3),
+    minLength: helpers.withMessage(
+      'El password debe tener al menos 6 caracteres',
+      minLength(6)
+    ),
+  },
+  passwordCheck: {
+    required: helpers.withMessage('El password es requerido', required),
+    passwordChek: helpers.withMessage(
+      'La confirmación de la contraseña debe ser igual',
+      passwordChek
+    ),
   },
 }
 
-const v$ = useVuelidate(rules, loginForm)
+const v$ = useVuelidate(rules, registerForm)
 
 const onSubmit = async () => {
   if (!(await v$.value.$validate())) return
-  await onLogin(loginForm.email, loginForm.password)
-  router.push({ name: 'home' })
+  await onRegister(registerForm.name, registerForm.email, registerForm.password)
+  // router.push({ name: 'home' })
 }
 </script>
 
@@ -38,9 +58,30 @@ const onSubmit = async () => {
   <div class="box">
     <span class="borderLine"></span>
     <form @submit.prevent="onSubmit">
-      <h2 class="title is-1">Acceder</h2>
+      <h2 class="title is-1">Registrate</h2>
       <div class="inputBox">
-        <input type="text" v-model="loginForm.email" @blur="v$.email.$touch" />
+        <input
+          type="text"
+          required
+          v-model="registerForm.name"
+          @blur="v$.name.$touch" />
+        <span>Nombre</span>
+        <i></i>
+      </div>
+      <span v-if="v$.name.$error">
+        <p
+          class="has-text-danger mt-2"
+          v-for="error in v$.name.$errors"
+          :key="error.$uid">
+          {{ error.$message }}
+        </p>
+      </span>
+      <div class="inputBox">
+        <input
+          type="text"
+          required
+          v-model="registerForm.email"
+          @blur="v$.email.$touch" />
         <span>Email</span>
         <i></i>
       </div>
@@ -53,11 +94,11 @@ const onSubmit = async () => {
           {{ error.$message }}
         </p>
       </span>
-
       <div class="inputBox">
         <input
           type="password"
-          v-model="loginForm.password"
+          required
+          v-model="registerForm.password"
           @blur="v$.password.$touch" />
         <span>Contraseña</span>
         <i></i>
@@ -70,17 +111,29 @@ const onSubmit = async () => {
           {{ error.$message }}
         </p>
       </span>
+
+      <div class="inputBox">
+        <input
+          type="password"
+          required
+          v-model="registerForm.passwordCheck"
+          @blur="v$.passwordCheck.$touch" />
+        <span>Confirmar Contraseña</span>
+        <i></i>
+      </div>
+      <span v-if="v$.passwordCheck.$error">
+        <p
+          class="has-text-danger mt-2"
+          v-for="error in v$.passwordCheck.$errors"
+          :key="error.$uid">
+          {{ error.$message }}
+        </p>
+      </span>
       <div class="links">
-        <!-- <a href="#">Cambiar Contraseña</a> -->
-        <RouterLink :to="{ name: 'register' }">Signup</RouterLink>
+        <RouterLink :to="{ name: 'login' }">Signin</RouterLink>
       </div>
 
-      <button type="submit" class="button flex justify-spacebettewn">
-        <Icon v-if="isLoading" icon="mdi:search" class="is-size-3" />
-        <span>Acceder</span>
-      </button>
-
-      <!-- <button class="button" @click="refresh">Refresh</button> -->
+      <input type="submit" class="button" value="Registrar" />
     </form>
   </div>
 </template>
@@ -89,11 +142,10 @@ const onSubmit = async () => {
 .box {
   position: relative;
   width: 380px;
-  height: 470px;
+  height: 700px;
   background-color: #1c1c1c;
   border-radius: 8px;
   overflow: hidden;
-
   &::before {
     content: '';
     position: absolute;
@@ -113,7 +165,6 @@ const onSubmit = async () => {
     transform-origin: bottom right;
     animation: animate 6s linear infinite;
   }
-
   &::after {
     content: '';
     position: absolute;
@@ -134,23 +185,19 @@ const onSubmit = async () => {
     animation: animate 6s linear infinite;
     animation-delay: -3s;
   }
-
   .borderLine {
     position: absolute;
     top: 0;
     inset: 0;
   }
-
   @keyframes animate {
     0% {
       transform: rotate(0deg);
     }
-
     100% {
       transform: rotate(360deg);
     }
   }
-
   form {
     position: absolute;
     inset: 4px;
@@ -160,19 +207,16 @@ const onSubmit = async () => {
     z-index: 2;
     display: flex;
     flex-direction: column;
-
     h2 {
       color: #fff;
       font-weight: 500;
       text-align: center;
       letter-spacing: 0.1rem;
     }
-
     .inputBox {
       position: relative;
       width: 300px;
       margin-top: 35px;
-
       input {
         position: relative;
         width: 100%;
@@ -186,14 +230,12 @@ const onSubmit = async () => {
         letter-spacing: 0.05em;
         transition: 0.5s;
         z-index: 10;
-
         &:valid ~ span,
         &:focus ~ span {
           color: #fff;
           font-size: 0.75em;
           transform: translateY(-34px);
         }
-
         &:valid ~ i,
         &:focus ~ i {
           height: 44px;
@@ -210,13 +252,11 @@ const onSubmit = async () => {
           width: 100px;
           margin-top: 10px;
           outline: 1px solid violet;
-
           &:active {
             opacity: 0.8;
           }
         }
       }
-
       span {
         position: absolute;
         left: 0;
@@ -227,7 +267,6 @@ const onSubmit = async () => {
         letter-spacing: 0.05em;
         transition: 0.5s;
       }
-
       i {
         position: absolute;
         left: 0;
@@ -241,17 +280,14 @@ const onSubmit = async () => {
         pointer-events: none;
       }
     }
-
     .links {
       display: flex;
       justify-content: space-between;
-
       a {
         margin: 10px 0;
         font-size: 0.75em;
         color: #8f8f8f;
         text-decoration: none;
-
         &:hover,
         &:nth-child(2) {
           color: #fff;

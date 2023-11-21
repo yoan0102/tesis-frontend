@@ -1,5 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
+
 import { routesUsers } from '@/users/routes'
+import { routesAdmin } from '../admin/routes'
 import authGuards from '@/shared/guards/authGuards'
 
 const router = createRouter({
@@ -42,6 +44,10 @@ const router = createRouter({
       ...routesUsers,
 
       path: '/users',
+    },
+    {
+      ...routesAdmin,
+      path: '/admin',
     },
     {
       path: '/:pathMatch(.*)*',
