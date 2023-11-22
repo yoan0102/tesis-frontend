@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/vue-query'
 import { createTrackService } from '../services/create.service'
+import { toast } from 'vue3-toastify'
 
 export const useCreateTrack = () => {
   const queryClient = useQueryClient()
@@ -7,11 +8,11 @@ export const useCreateTrack = () => {
     async (formData: any) => createTrackService(formData),
     {
       onSuccess(data) {
-        console.log(data)
+        toast.success('Se guardo correctamente la canción')
         queryClient.invalidateQueries(['tracks'])
       },
       onError() {
-        console.log('Ups Error')
+        toast.error('Ups hubo un error al guardar la canción')
       },
     }
   )

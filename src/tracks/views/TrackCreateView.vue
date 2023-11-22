@@ -108,10 +108,10 @@ const onSubmit = async () => {
     <div class="box">
       <span class="borderLine"></span>
       <form ref="form" @submit.prevent="onSubmit" enctype="multipart/form-data">
-        <h2 class="title is-1">Upload Track</h2>
+        <h2 class="title is-1 has-text-centered">Upload Track</h2>
 
-        <div class="is-flex is-justify-content-space-between">
-          <div class="is-flex is-flex-direction-column">
+        <div class="container-input-row inputFile">
+          <div class="is-flex is-flex-direction-column box-file">
             <div class="file has-name is-boxed">
               <label class="file-label">
                 <input
@@ -130,18 +130,9 @@ const onSubmit = async () => {
                 </span>
               </label>
             </div>
-
-            <!-- <span v-if="v$.name.$error">
-              <p
-                class="has-text-danger mt-2"
-                v-for="error in v$.name.$errors"
-                :key="error.$uid">
-                {{ error.$message }}
-              </p>
-            </span> -->
           </div>
 
-          <div class="is-flex is-flex-direction-column">
+          <div class="is-flex is-flex-direction-column box-file">
             <div class="file has-name is-boxed">
               <label class="file-label">
                 <input
@@ -154,31 +145,23 @@ const onSubmit = async () => {
                   <span class="file-icon is-size-3">
                     <Icon icon="mdi:upload" />
                   </span>
-                  <span class="file-label">Subir cover de la canción</span>
+                  <span class="file-label">Subir cover </span>
                 </span>
                 <span class="file-name"> {{ coverFileName }} </span>
               </label>
             </div>
-
-            <!-- <span v-if="v$.album.$error">
-              <p
-                class="has-text-danger mt-2"
-                v-for="error in v$.album.$errors"
-                :key="error.$uid">
-                {{ error.$message }}
-              </p>
-            </span> -->
           </div>
         </div>
 
-        <div class="is-flex is-justify-content-space-between">
+        <div class="container-input-row">
           <div class="is-flex is-flex-direction-column">
-            <div class="inputBox mr-1">
+            <div class="inputBox">
+              <label>Nombre</label>
               <input
+                class="input is-normal"
                 type="text"
                 v-model="createTrackForm.name"
                 @blur="v$.name.$touch" />
-              <span>Nombre</span>
               <i></i>
             </div>
 
@@ -194,11 +177,13 @@ const onSubmit = async () => {
 
           <div class="is-flex is-flex-direction-column">
             <div class="inputBox">
+              <label>Album</label>
+
               <input
+                class="input is-normal"
                 type="text"
                 v-model="createTrackForm.album"
                 @blur="v$.album.$touch" />
-              <span>Album</span>
               <i></i>
             </div>
             <span v-if="v$.album.$error">
@@ -212,14 +197,15 @@ const onSubmit = async () => {
           </div>
         </div>
 
-        <div class="is-flex is-justify-content-space-between">
+        <div class="container-input-row">
           <div class="is-flex is-flex-direction-column">
-            <div class="inputBox mr-1">
+            <div class="inputBox">
+              <label>Nombre del Artista</label>
               <input
+                class="input is-normal"
                 type="text"
                 v-model="createTrackForm.artistName"
                 @blur="v$.artistName.$touch" />
-              <span>Nombre del Artista</span>
               <i></i>
             </div>
 
@@ -235,11 +221,12 @@ const onSubmit = async () => {
 
           <div class="is-flex is-flex-direction-column">
             <div class="inputBox">
+              <label>Nacionalidad del artista</label>
               <input
+                class="input is-normal"
                 type="text"
                 v-model="createTrackForm.nationality"
                 @blur="v$.nationality.$touch" />
-              <span>Nacionalidad del artista</span>
               <i></i>
             </div>
             <span v-if="v$.nationality.$error">
@@ -253,19 +240,22 @@ const onSubmit = async () => {
           </div>
         </div>
 
-        <div class="is-flex is-justify-content-space-between">
+        <div class="container-input-row">
           <div class="is-flex is-flex-direction-column">
-            <div class="inputBox mr-1">
-              <input type="text" v-model="createTrackForm.nickname" />
-              <span>NickName del Artista</span>
+            <div class="inputBox">
+              <label>NickName del Artista</label>
+              <input
+                class="input is-normal"
+                type="text"
+                v-model="createTrackForm.nickname" />
               <i></i>
             </div>
           </div>
 
           <div class="is-flex is-flex-direction-column">
-            <span class="mt-3 is-size-7">Género de la canción</span>
+            <label>Género de la canción</label>
             <div class="inputBox">
-              <div class="inputSelect">
+              <div class="select is-normal">
                 <select v-model="createTrackForm.gender">
                   <option value="inedita">Inedita</option>
                   <option value="popular">Popular</option>
@@ -284,14 +274,15 @@ const onSubmit = async () => {
           </div>
         </div>
 
-        <div class="is-flex is-justify-content-space-between">
+        <div class="container-input-row">
           <div class="is-flex is-flex-direction-column">
             <div class="inputBox mr-1">
+              <label>Tiempo final de la canción</label>
               <input
+                class="input is-normal"
                 type="text"
                 v-model="createTrackForm.durationEnd"
                 @blur="v$.durationEnd.$touch" />
-              <span>Tiempo final de la canción</span>
               <i></i>
             </div>
 
@@ -307,24 +298,17 @@ const onSubmit = async () => {
 
           <div class="is-flex is-flex-direction-column">
             <div class="inputBox">
-              <input type="date" v-model="createTrackForm.release_date" />
-              <span>La fecha de creación de la cacnción</span>
+              <label>La fecha de creación de la cacnción</label>
+              <input
+                class="input is-normal"
+                type="date"
+                v-model="createTrackForm.release_date" />
               <i></i>
             </div>
-            <!-- <span v-if="v$.release_date.$error">
-              <p
-                class="has-text-danger mt-2"
-                v-for="error in v$.release_date.$errors"
-                :key="error.$uid">
-                {{ error.$message }}
-              </p>
-            </span> -->
           </div>
         </div>
 
-        <button
-          type="submit"
-          class="button flex justify-spacebettewn is-primary mt-5">
+        <button type="submit" class="button is-primary mt-5 is-fullwidth">
           <Icon
             v-if="true"
             icon="mdi:content-save-plus"
@@ -338,197 +322,52 @@ const onSubmit = async () => {
   </div>
 </template>
 
-<style scoped lang="scss">
-.inputSelect {
+<style lang="scss" scoped>
+.box {
   width: 100%;
-  option {
-    padding: 2rem;
-    font-size: 1rem;
-    text-align: center;
-    width: 100%;
-    &:focus,
-    &:active {
-      border: none;
-    }
+  margin-top: 4rem;
+}
+.container-input-row {
+  width: 100%;
+  /* outline: 1px solid violet; */
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 3px 0px 3px 0px;
+  &.inputFile {
+    align-items: center;
+  }
+  .box-file {
+    max-width: 10rem;
   }
 }
-.box {
-  position: relative;
-  width: 800px;
-  height: 770px;
-  background-color: #f3f3f3;
-  border-radius: 8px;
-  overflow: hidden;
 
-  &::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 380px;
-    height: 420px;
-    background-image: linear-gradient(
-      0deg,
-      transparent,
-      transparent,
-      #7d45ff,
-      #7d45ff,
-      #7d45ff
-    );
-    z-index: 1;
-    transform-origin: bottom right;
-    animation: animate 6s linear infinite;
+form {
+  height: 80rem;
+}
+
+@media (width >= 769px) {
+  .box {
+    margin-top: 0px;
+    max-width: 800px;
   }
 
-  &::after {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 380px;
-    height: 420px;
-    background-image: linear-gradient(
-      0deg,
-      transparent,
-      transparent,
-      #7d45ff,
-      #7d45ff,
-      #7d45ff
-    );
-    z-index: 1;
-    transform-origin: bottom right;
-    animation: animate 6s linear infinite;
-    animation-delay: -3s;
-  }
+  .container-input-row {
+    padding: 1rem;
+    flex-direction: row;
+    justify-content: space-between;
 
-  .borderLine {
-    position: absolute;
-    top: 0;
-    inset: 0;
-  }
-
-  @keyframes animate {
-    0% {
-      transform: rotate(0deg);
-    }
-
-    100% {
-      transform: rotate(360deg);
-    }
-  }
-
-  form {
-    position: absolute;
-    inset: 4px;
-    background-color: #fefefe;
-    padding: 50px 40px;
-    border-radius: 8px;
-    z-index: 2;
-    display: flex;
-    flex-direction: column;
-
-    h2 {
-      color: #000;
-      font-weight: 500;
-      text-align: center;
-      letter-spacing: 0.1rem;
+    &.inputFile {
+      align-items: center;
     }
 
     .inputBox {
-      position: relative;
-      width: 300px;
-      margin-top: 35px;
-      input {
-        position: relative;
-        width: 100%;
-        padding: 20px 10px 10px;
-        background: transparent;
-        outline: none;
-        border: none;
-        border-bottom: 1px solid #00000025;
-        box-shadow: none;
-        color: #23242a;
-        font-size: 1em;
-        letter-spacing: 0.05em;
-        transition: 0.5s;
-        z-index: 10;
-
-        &:valid ~ span,
-        &:focus ~ span {
-          color: #000;
-          font-size: 0.75em;
-          transform: translateY(-34px);
-        }
-
-        &:valid ~ i,
-        &:focus ~ i {
-          height: 44px;
-        }
-
-        &[type='submit'] {
-          border: none;
-          outline: none;
-          padding: 9px 25px;
-          background-color: var(--primary);
-          font-size: 0.9em;
-          border-radius: 4px;
-          font-weight: 600;
-          width: 100px;
-          margin-top: 10px;
-          outline: 1px solid violet;
-
-          &:active {
-            opacity: 0.8;
-          }
-        }
-      }
-
-      select {
-        width: 100%;
-        border: none;
-        border-bottom: 1px solid #ccc;
-      }
-
-      span {
-        position: absolute;
-        left: 0;
-        padding: 20px 0px 10px;
-        pointer-events: none;
-        color: #8f8f8f;
-        font-size: 1em;
-        letter-spacing: 0.05em;
-        transition: 0.5s;
-      }
-
-      i {
-        position: absolute;
-        left: 0;
-        bottom: 0;
-        width: 100%;
-        height: 2px;
-        background-color: #fff;
-        border-radius: 4px;
-        overflow: hidden;
-        transition: 0.5s;
-        pointer-events: none;
-      }
+      display: flex;
+      flex-direction: column;
     }
 
-    .links {
-      display: flex;
-      justify-content: space-between;
-
-      a {
-        margin: 10px 0;
-        font-size: 0.75em;
-        color: #8f8f8f;
-        text-decoration: none;
-
-        &:hover,
-        &:nth-child(2) {
-          color: var(--primary);
-        }
-      }
+    .input {
+      width: 20rem;
     }
   }
 }
