@@ -27,7 +27,7 @@ defineProps<{
 .player-zone {
   position: relative;
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
   flex-wrap: wrap;
   gap: 50px 25px;

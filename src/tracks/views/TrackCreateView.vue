@@ -298,7 +298,7 @@ const onSubmit = async () => {
 
           <div class="is-flex is-flex-direction-column">
             <div class="inputBox">
-              <label>La fecha de creación de la cacnción</label>
+              <label>La fecha de creación de la canción</label>
               <input
                 class="input is-normal"
                 type="date"
@@ -313,7 +313,7 @@ const onSubmit = async () => {
             v-if="true"
             icon="mdi:content-save-plus"
             class="is-size-3 mr-3" />
-          <span>Acceder</span>
+          <span>Guardar</span>
         </button>
 
         <!-- <button class="button" @click="refresh">Refresh</button> -->

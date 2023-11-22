@@ -8,10 +8,6 @@ export const routesUsers: RouteRecordRaw = {
   component: UserLayout,
   children: [
     {
-      path: '',
-      redirect: { name: 'login' },
-    },
-    {
       path: 'login',
       name: 'login',
       beforeEnter: authGuards,
