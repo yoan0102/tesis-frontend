@@ -1,13 +1,16 @@
 <script setup lang="ts">
-import { reactive, ref } from 'vue'
+import { reactive, ref, computed } from 'vue'
 import { Icon } from '@iconify/vue'
 import { useVuelidate } from '@vuelidate/core'
 import { required, helpers } from '@vuelidate/validators'
 import useLogin from '../../users/composables/useLogin'
+import { useCreateTrack } from '../composables/useCreateTrack'
 
 const { user } = useLogin()
 
-const createTrack = reactive({
+const { createTrack } = useCreateTrack()
+
+const createTrackForm = reactive({
   name: '',
   album: '',
   artistName: '',
@@ -54,17 +57,49 @@ const rules = {
   },
 }
 
-const v$ = useVuelidate(rules, createTrack)
+const v$ = useVuelidate(rules, createTrackForm)
 
 const form = ref()
 const trackFile = ref()
+const trackFileName = computed(() => {
+  const track = trackFile.value?.name.split('.')[0]
+  return track ? track : ''
+})
 const onTrackInput = (event: any) => {
-  // const file = event.target.files[0]
-  // trackFile.value = file
+  const file = event.target.files[0]
+  trackFile.value = file
+}
+
+const coverFile = ref()
+const coverFileName = computed(() => {
+  const cover = coverFile.value?.name.split('.')[0]
+  return cover ? cover : ''
+})
+
+const onCoverInput = (event: any) => {
+  const file = event.target.files[0]
+  coverFile.value = file
 }
 const onSubmit = async () => {
   if (!(await v$.value.$validate())) return
-  const trackForm = new FormData(form.value)
+
+  const trackForm = new FormData()
+  trackForm.append('track', trackFile.value)
+  trackForm.append('cover', coverFile.value)
+
+  trackForm.append('name', createTrackForm.name)
+  trackForm.append('album', createTrackForm.album)
+  trackForm.append('artistName', createTrackForm.artistName)
+  trackForm.append('nationality', createTrackForm.nationality)
+  trackForm.append('nickname', createTrackForm.nickname)
+  trackForm.append('artistCName', createTrackForm.artistCName.toString())
+  trackForm.append('durationStart', String(createTrackForm.durationStart))
+  trackForm.append('durationEnd', String(createTrackForm.durationEnd))
+  trackForm.append('gender', createTrackForm.gender)
+  trackForm.append('release_date', createTrackForm.release_date)
+  trackForm.append('user_Id', createTrackForm.user_Id)
+
+  await createTrack(trackForm)
 }
 </script>
 
@@ -72,14 +107,18 @@ const onSubmit = async () => {
   <div class="is-flex is-justify-content-center is-align-items-center p-5">
     <div class="box">
       <span class="borderLine"></span>
-      <form ref="form" @submit.prevent="onSubmit">
+      <form ref="form" @submit.prevent="onSubmit" enctype="multipart/form-data">
         <h2 class="title is-1">Upload Track</h2>
 
         <div class="is-flex is-justify-content-space-between">
           <div class="is-flex is-flex-direction-column">
             <div class="file has-name is-boxed">
               <label class="file-label">
-                <input class="file-input" type="file" name="track" />
+                <input
+                  class="file-input"
+                  type="file"
+                  name="track"
+                  @input="onTrackInput" />
                 <span class="file-cta">
                   <span class="file-icon is-size-3">
                     <Icon icon="mdi:upload" />
@@ -87,7 +126,7 @@ const onSubmit = async () => {
                   <span class="file-label">Subir canción </span>
                 </span>
                 <span class="file-name">
-                  {{ trackFile }}
+                  {{ trackFileName }}
                 </span>
               </label>
             </div>
@@ -109,7 +148,7 @@ const onSubmit = async () => {
                   class="file-input"
                   type="file"
                   name="resume"
-                  @input="onTrackInput"
+                  @input="onCoverInput"
                   accept="image/png, image/jpeg" />
                 <span class="file-cta">
                   <span class="file-icon is-size-3">
@@ -117,17 +156,18 @@ const onSubmit = async () => {
                   </span>
                   <span class="file-label">Subir cover de la canción</span>
                 </span>
-                <span class="file-name"> {{ form }} </span>
+                <span class="file-name"> {{ coverFileName }} </span>
               </label>
             </div>
-            <span v-if="v$.album.$error">
+
+            <!-- <span v-if="v$.album.$error">
               <p
                 class="has-text-danger mt-2"
                 v-for="error in v$.album.$errors"
                 :key="error.$uid">
                 {{ error.$message }}
               </p>
-            </span>
+            </span> -->
           </div>
         </div>
 
@@ -136,7 +176,7 @@ const onSubmit = async () => {
             <div class="inputBox mr-1">
               <input
                 type="text"
-                v-model="createTrack.name"
+                v-model="createTrackForm.name"
                 @blur="v$.name.$touch" />
               <span>Nombre</span>
               <i></i>
@@ -155,8 +195,8 @@ const onSubmit = async () => {
           <div class="is-flex is-flex-direction-column">
             <div class="inputBox">
               <input
-                type="password"
-                v-model="createTrack.album"
+                type="text"
+                v-model="createTrackForm.album"
                 @blur="v$.album.$touch" />
               <span>Album</span>
               <i></i>
@@ -177,7 +217,7 @@ const onSubmit = async () => {
             <div class="inputBox mr-1">
               <input
                 type="text"
-                v-model="createTrack.artistName"
+                v-model="createTrackForm.artistName"
                 @blur="v$.artistName.$touch" />
               <span>Nombre del Artista</span>
               <i></i>
@@ -196,8 +236,8 @@ const onSubmit = async () => {
           <div class="is-flex is-flex-direction-column">
             <div class="inputBox">
               <input
-                type="password"
-                v-model="createTrack.nationality"
+                type="text"
+                v-model="createTrackForm.nationality"
                 @blur="v$.nationality.$touch" />
               <span>Nacionalidad del artista</span>
               <i></i>
@@ -216,7 +256,7 @@ const onSubmit = async () => {
         <div class="is-flex is-justify-content-space-between">
           <div class="is-flex is-flex-direction-column">
             <div class="inputBox mr-1">
-              <input type="text" v-model="createTrack.nickname" />
+              <input type="text" v-model="createTrackForm.nickname" />
               <span>NickName del Artista</span>
               <i></i>
             </div>
@@ -226,7 +266,7 @@ const onSubmit = async () => {
             <span class="mt-3 is-size-7">Género de la canción</span>
             <div class="inputBox">
               <div class="inputSelect">
-                <select v-model="createTrack.gender">
+                <select v-model="createTrackForm.gender">
                   <option value="inedita">Inedita</option>
                   <option value="popular">Popular</option>
                   <option value="educativa">Educativa</option>
@@ -249,7 +289,7 @@ const onSubmit = async () => {
             <div class="inputBox mr-1">
               <input
                 type="text"
-                v-model="createTrack.durationEnd"
+                v-model="createTrackForm.durationEnd"
                 @blur="v$.durationEnd.$touch" />
               <span>Tiempo final de la canción</span>
               <i></i>
@@ -267,10 +307,7 @@ const onSubmit = async () => {
 
           <div class="is-flex is-flex-direction-column">
             <div class="inputBox">
-              <input
-                type="date"
-                v-model="createTrack.release_date"
-                @blur="v$.release_date.$touch" />
+              <input type="date" v-model="createTrackForm.release_date" />
               <span>La fecha de creación de la cacnción</span>
               <i></i>
             </div>
