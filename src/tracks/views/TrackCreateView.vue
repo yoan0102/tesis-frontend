@@ -177,7 +177,7 @@ const onSubmit = async () => {
 
           <div class="is-flex is-flex-direction-column">
             <div class="inputBox">
-              <label>Album</label>
+              <label>Álbum</label>
 
               <input
                 class="input is-normal"
@@ -200,7 +200,7 @@ const onSubmit = async () => {
         <div class="container-input-row">
           <div class="is-flex is-flex-direction-column">
             <div class="inputBox">
-              <label>Nombre del Artista</label>
+              <label>Nombre del artista</label>
               <input
                 class="input is-normal"
                 type="text"
@@ -243,7 +243,7 @@ const onSubmit = async () => {
         <div class="container-input-row">
           <div class="is-flex is-flex-direction-column">
             <div class="inputBox">
-              <label>NickName del Artista</label>
+              <label>NickName del artista</label>
               <input
                 class="input is-normal"
                 type="text"
@@ -257,7 +257,7 @@ const onSubmit = async () => {
             <div class="inputBox">
               <div class="select is-normal">
                 <select v-model="createTrackForm.gender">
-                  <option value="inedita">Inedita</option>
+                  <option value="inedita">Inédita</option>
                   <option value="popular">Popular</option>
                   <option value="educativa">Educativa</option>
                 </select>
