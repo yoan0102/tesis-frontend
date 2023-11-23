@@ -13,7 +13,7 @@ import TheMediaPLayer from '@/shared/components/TheMediaPLayer.vue'
       <RouterView />
     </main>
   </div>
-  <!-- <TheMediaPLayer /> -->
+  <TheMediaPLayer />
 </template>
 
 <style scoped lang="scss">

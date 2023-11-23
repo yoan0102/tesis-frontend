@@ -11,7 +11,8 @@ export const useCreateTrack = () => {
         toast.success('Se guardo correctamente la canción')
         queryClient.invalidateQueries(['tracks'])
       },
-      onError() {
+      onError(error) {
+        console.log(error)
         toast.error('Ups hubo un error al guardar la canción')
       },
     }
