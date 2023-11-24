@@ -16,7 +16,7 @@ const deleteFavorite = (id: string) => {
     icon="heart-outline"
     user-name="Yoan Estrada Blanco"
     title="Canciones que te gustan"
-    :trackTotal="206" />
+    :trackTotal="favorites.length" />
   <template v-if="favorites.length > 0">
     <BasePlayListBody
       :tracks="favorites"
