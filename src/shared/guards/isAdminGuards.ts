@@ -7,7 +7,12 @@ export default (
   next: NavigationGuardNext
 ) => {
   const authStore = useAuthStore()
-  if (!authStore.user && authStore.user.role !== 'Admin') {
+  if (
+    to.name !== 'login' &&
+    to.name !== 'register' &&
+    !authStore.user &&
+    authStore.user.role !== 'Admin'
+  ) {
     return next({ name: 'login' })
   }
   return next()

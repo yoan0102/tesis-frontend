@@ -1,10 +1,10 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import type { User } from '../interfaces/user.interface'
-import { useLocalStorage } from '@vueuse/core'
+import { useLocalStorage, type RemovableRef } from '@vueuse/core'
 
 export const useAuthStore = defineStore('auth', () => {
-  const user = useLocalStorage('user', null, {
+  const user: RemovableRef<User> = useLocalStorage('user', null, {
     serializer: {
       read: (v: any) => (v ? JSON.parse(v) : null),
       write: (v: any) => JSON.stringify(v),
