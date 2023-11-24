@@ -108,7 +108,7 @@ const onSubmit = async () => {
     <div class="box">
       <span class="borderLine"></span>
       <form ref="form" @submit.prevent="onSubmit" enctype="multipart/form-data">
-        <h2 class="title is-1 has-text-centered">Upload Track</h2>
+        <h2 class="title is-1 has-text-centered">Subir Canción</h2>
 
         <div class="container-input-row inputFile">
           <div class="is-flex is-flex-direction-column box-file">
