@@ -18,11 +18,13 @@ watch(y, () => {
 </script>
 
 <template>
-  <BasePlayListHeader
-    id="content"
-    smallText="Orientaciones"
-    icon="guitar-pick-outline"
-    title="Técnicas-Metodológicas" />
+  <div id="content">
+    <BasePlayListHeader
+      smallText="Orientaciones"
+      icon="guitar-pick-outline"
+      title="Técnicas-Metodológicas" />
+    <h1 class="title-mobile is-size-2">Orientaciones</h1>
+  </div>
   <!-- <ul class="box is-flex is-justify-content-center sticky">
         <li class="button is-primary"><a href="#requeriment">Requisitos</a></li>
         <li class="button is-primary"><a href="#importance">Importancia</a></li>
@@ -261,6 +263,10 @@ watch(y, () => {
 </template>
 
 <style scoped lang="scss">
+.title-mobile {
+  text-align: center;
+  margin-top: 10rem;
+}
 .content {
   padding: 3rem;
   padding-bottom: 10rem;
@@ -297,5 +303,11 @@ watch(y, () => {
   top: 0px;
   width: 100%;
   height: 80px;
+}
+
+@media (width > 1024px) {
+  .title-mobile {
+    display: none;
+  }
 }
 </style>
