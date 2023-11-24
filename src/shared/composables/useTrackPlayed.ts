@@ -18,6 +18,10 @@ export const useTrackPlayed = () => {
     trackStore.setTrackPlayed(track)
   }
 
+  const resetTrackPay = () => {
+    track.value = null
+  }
+
   const calculateTime = () => {
     const { duration, currentTime } = audio
     setTimeElapse(currentTime)
@@ -74,6 +78,7 @@ export const useTrackPlayed = () => {
     setPlayerStatus,
     togglePlayer,
     playerStatus,
-    playerPercentage
+    playerPercentage,
+    resetTrackPay,
   }
 }

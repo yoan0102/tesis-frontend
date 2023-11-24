@@ -21,7 +21,7 @@ export const mainMenu: {
   ],
   accessLink: [
     {
-      name: 'Crear lista',
+      name: 'Subir una canción',
       icon: 'mdi:music-note-plus',
       router: { name: 'tracks-create' },
     },

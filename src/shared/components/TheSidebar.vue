@@ -5,12 +5,17 @@ import { mainMenu } from '@/router/homeLinks'
 import { useAuthStore } from '@/users/store/authStore'
 import useLogin from '@/users/composables/useLogin'
 import { RouterLink } from 'vue-router'
+import { useTrackPlayed } from '../composables/useTrackPlayed'
 
 const authStore = useAuthStore()
 const { logout } = useLogin()
 
 const onLogout = () => {
   logout()
+}
+const { resetTrackPay } = useTrackPlayed()
+const onStopTrack = () => {
+  resetTrackPay()
 }
 </script>
 
@@ -71,6 +76,7 @@ const onLogout = () => {
           target="__blank"
           :to="{ name: 'admin-tracks' }"
           class="button is-primary"
+          @click="onStopTrack"
           >Ir al Admin</RouterLink
         >
         <button
