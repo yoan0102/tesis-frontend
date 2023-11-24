@@ -4,8 +4,11 @@ import { useTrackPlayed } from '../composables/useTrackPlayed'
 import { watchEffect, ref } from 'vue'
 import { nextTick } from 'process'
 import BaseBtnLike from './BaseBtnLike.vue'
+import { useFavoritesTracks } from '../composables/useFavoritesTracks'
 
 const progressBar = ref<HTMLSpanElement>()
+
+const { addFavorites } = useFavoritesTracks()
 
 const {
   track,
@@ -62,7 +65,9 @@ const handleProgressPlayer = (e: any) => {
           <div class="track-like">
             <button class="btn-like">
               <!-- <Icon icon="mdi:heart-outline"></Icon>B -->
-              <BaseBtnLike icon="heart-outline" />
+              <BaseBtnLike
+                icon="heart-outline"
+                @click="addFavorites(track._id)" />
             </button>
           </div>
         </div>

@@ -18,7 +18,7 @@ export const useFavoritesTracks = () => {
     {
       onSuccess(data) {
         queryClient.invalidateQueries(['favorites'])
-        authStore.setUser(data.user)
+        toast.success('Se agregó la canción a favoritas')
       },
       onError() {
         toast.error(

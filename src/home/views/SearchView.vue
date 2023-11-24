@@ -49,9 +49,12 @@ const handleTerm = () => {
 
     <div class="track-page">
       <BaseSpinner v-if="isLoading" />
-      <h2 class="title has-text-centered" v-else-if="searchedTrack.length < 1">
-        No se encontraron Canciones
-      </h2>
+      <template v-else-if="searchedTrack.length < 1">
+        <h2 class="title has-text-centered mb-0">
+          No se encontraron Canciones
+        </h2>
+        <img src="@/assets/cover-g.jpg" alt="cover" />
+      </template>
       <BaseSectionCards
         v-else
         title="La Mejor música del mundo"
@@ -62,6 +65,10 @@ const handleTerm = () => {
 </template>
 
 <style scoped lang="scss">
+img {
+  min-width: 100%;
+  object-fit: cover;
+}
 .search-container {
   min-width: 80vw;
   margin-top: 8rem;
