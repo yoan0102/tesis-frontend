@@ -18,7 +18,7 @@ const createTrackForm = reactive({
   nickname: '',
   artistCName: [],
   durationStart: 0,
-  durationEnd: 270,
+  durationEnd: 0,
   gender: '',
   release_date: '',
   user_Id: user.value._id,
@@ -44,6 +44,12 @@ const rules = {
   },
   nationality: {
     required: helpers.withMessage('La nacionalidad es requerida', required),
+  },
+  release_date: {
+    required: helpers.withMessage(
+      'La fecha de creación es requerida',
+      required
+    ),
   },
   durationEnd: {
     required: helpers.withMessage(
@@ -302,9 +308,18 @@ const onSubmit = async () => {
               <input
                 class="input is-normal"
                 type="date"
-                v-model="createTrackForm.release_date" />
+                v-model="createTrackForm.release_date"
+                @blur="v$.release_date.$touch" />
               <i></i>
             </div>
+            <span v-if="v$.release_date.$error">
+              <p
+                class="has-text-danger mt-2"
+                v-for="error in v$.release_date.$errors"
+                :key="error.$uid">
+                {{ error.$message }}
+              </p>
+            </span>
           </div>
         </div>
 
