@@ -73,6 +73,7 @@ const { publishedTrack, deleteTrack } = useTracksAdmin()
 <style scoped lang="scss">
 .play-list-body {
   padding: 1rem 2rem;
+  margin-bottom: 3rem;
 }
 .play-list-table-header {
   width: 100%;

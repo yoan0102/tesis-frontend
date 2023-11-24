@@ -59,7 +59,10 @@ const handleProgressPlayer = (e: any) => {
       <!--Zona del artista-->
       <div class="artist player-center">
         <div class="artist-inside" v-if="track">
-          <img :src="track.cover" :alt="track?.name" class="cover" />
+          <img
+            :src="track.cover ? track.cover : '/cover-g.jpg'"
+            :alt="track?.name"
+            class="cover" />
           <div class="track-info">
             <h3 class="track-title">{{ track?.name }}</h3>
             <h5 class="track-title sub-title">{{ track.album?.name }}</h5>

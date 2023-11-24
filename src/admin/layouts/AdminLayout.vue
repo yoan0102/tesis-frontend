@@ -62,8 +62,6 @@ import TheMediaPLayer from '@/shared/components/TheMediaPLayer.vue'
 
     <TheMediaPLayer />
   </div>
-
-  <RouterView />
 </template>
 
 <style scoped lang="scss">
