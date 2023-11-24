@@ -26,11 +26,11 @@ export const useFavorites = () => {
       return data
     },
     onSuccess(data) {
-      tracksStore.setFavorites(data)
+      tracksStore.setFavorites(data.filter((x: any) => x !== undefined))
     },
     onError(error: any) {
+      tracksStore.setFavorites([])
       if (error.response && error.response.data.error === 'jwt expired') {
-        tracksStore.setFavorites([])
         authStore.setUser(null)
         router.push({ name: 'home' })
         setTimeout(() => {

@@ -7,7 +7,7 @@ import { useTrackPlayed } from '../composables/useTrackPlayed'
 
 defineEmits(['on-delete-favorite'])
 
-const { tracks } = defineProps<{
+defineProps<{
   tracks: Track[]
 }>()
 
@@ -26,20 +26,6 @@ const changeSort = (property: string) => {
     order: order === 'asc' ? 'desc' : 'asc',
   }
 }
-
-// watch(optionsSort, () => {
-//     if (!optionsSort.value.property) return trackOrder.value = props.tracks
-//     const tmpList = props.tracks.sort((a, b) => {
-//         if (a[optionsSort.value.property] < b[optionsSort.value.property]) {
-//             return -1
-//         } else if (a[optionsSort.value.property] === b[optionsSort.value.property]) {
-//             return 0
-//         } else {
-//             return 1
-//         }
-//     })
-
-// })
 </script>
 
 <template>
