@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import TheSidebarAdmin from '../components/TheSidebarAdmin.vue'
+import TheMediaPLayer from '@/shared/components/TheMediaPLayer.vue'
 </script>
 
 <template>
@@ -58,6 +59,8 @@ import TheSidebarAdmin from '../components/TheSidebarAdmin.vue'
     <main class="main">
       <RouterView />
     </main>
+
+    <TheMediaPLayer />
   </div>
 
   <RouterView />

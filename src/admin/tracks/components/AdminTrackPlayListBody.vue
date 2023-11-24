@@ -2,12 +2,15 @@
 import { Icon } from '@iconify/vue'
 import type { Track } from '@/interfaces/tracks'
 import formatDate from '@/shared/utils/formatDate'
+import { useTrackPlayed } from '@/shared/composables/useTrackPlayed'
+import { useTracksAdmin } from '../composables/useTrackAdmin'
 
 defineEmits(['on-delete-track'])
-
 defineProps<{
   tracks: Track[]
 }>()
+const { trackPlay } = useTrackPlayed()
+const { publishedTrack } = useTracksAdmin()
 </script>
 
 <template>
@@ -45,9 +48,10 @@ defineProps<{
       <li class="track-name-opacity">
         <button
           class="button is-danger"
-          @click="$emit('on-delete-favorite', track._id)">
+          @click="publishedTrack(track._id, !track.published)">
           <span class="icon is-small">
-            <Icon icon="mdi:heart-broken" />
+            <Icon
+              :icon="!track.published ? 'mdi:publish' : 'mdi:publish-off'" />
           </span>
         </button>
         <button class="button is-success" @click="trackPlay(track)">
