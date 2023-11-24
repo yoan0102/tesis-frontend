@@ -45,7 +45,7 @@ const changeSort = (property: string) => {
           <img
             appImgBroken
             class="cover-track"
-            :src="track.cover"
+            :src="track.cover ? track.cover : '/cover-g.jpg'"
             :alt="track.name" />
           <div class="cover-info">
             <div class="name-track">{{ track.name }}</div>
