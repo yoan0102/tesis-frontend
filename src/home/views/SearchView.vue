@@ -74,6 +74,10 @@ img {
   margin-top: 8rem;
 }
 
+.search-input {
+  margin-top: 3rem;
+}
+
 .track-page {
   padding: 3rem;
 }
@@ -83,15 +87,21 @@ img {
     min-width: 100vw;
     margin-top: 0%;
 
-    .search-input {
+    /* .search-input {
       display: none;
-    }
+    } */
   }
 }
 
 @media (min-width: 768px) {
   .search-container {
     min-width: 90vw;
+  }
+}
+
+@media (width > 1024px) {
+  .search-input {
+    display: none;
   }
 }
 </style>

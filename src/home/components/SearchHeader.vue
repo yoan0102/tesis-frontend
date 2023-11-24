@@ -94,7 +94,7 @@ const onChange = () => {
   }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   .play-list-header {
     display: flex;
   }
