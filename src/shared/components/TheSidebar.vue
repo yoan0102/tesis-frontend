@@ -65,33 +65,22 @@ const onLogout = () => {
           >Registrate</RouterLink
         >
       </template>
-      <button
-        v-else
-        :to="{ name: 'login' }"
-        class="button is-primary"
-        @click="onLogout">
-        Logout
-      </button>
+      <template v-else>
+        <RouterLink
+          v-if="authStore.user.role === 'Admin'"
+          target="__blank"
+          :to="{ name: 'admin-tracks' }"
+          class="button is-primary"
+          >Ir al Admin</RouterLink
+        >
+        <button
+          :to="{ name: 'login' }"
+          class="button is-outlined is-primary"
+          @click="onLogout">
+          Logout
+        </button>
+      </template>
     </div>
-
-    <!-- <div class="separator link--mobile-hide" v-if="mainMenu.accessLink.length > 0"></div>
-
-        <ul class="navbar__container">
-            <li class="link" v-for="item in customOptions" :key="item.router">
-                <router-link to="/">
-                    <Icon :icon="item.icon" class="is-size-3" />
-                    <span class="link__text">{{ item.name }}</span>
-                </router-link>
-            </li>
-        </ul> -->
-    <!-- <router-link to="/">
-            <img src="" class="link__image--profile" alt="image profile">
-        </router-link> -->
-
-    <!-- <router-link to="/" class="navbar__more link">
-            <Icon icon="mdi:more" class="is-size-3" />
-            <span class="link__text">More...</span>
-        </router-link> -->
   </nav>
 </template>
 

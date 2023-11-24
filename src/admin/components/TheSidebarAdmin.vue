@@ -1,10 +1,11 @@
 <script lang="ts" setup>
 import { Icon } from '@iconify/vue'
 import { mainMenu } from '../homeLinks'
-
-// const onLogout = () => {
-//   logout()
-// }
+import useLogin from '@/users/composables/useLogin'
+const { user, logout } = useLogin()
+const onLogout = () => {
+  logout()
+}
 </script>
 
 <template>
@@ -31,6 +32,12 @@ import { mainMenu } from '../homeLinks'
         </router-link>
       </li>
     </ul>
+    <RouterLink
+      target="__blank"
+      :to="{ name: 'home' }"
+      class="button is-primary"
+      >Vamos a Cantar</RouterLink
+    >
   </nav>
 </template>
 

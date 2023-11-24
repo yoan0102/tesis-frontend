@@ -1,12 +1,12 @@
 import type { RouteRecordRaw } from 'vue-router'
-import authGuards from '@/shared/guards/authGuards'
+import isAdminGuards from '@/shared/guards/isAdminGuards'
 import AdminLayout from './layouts/AdminLayout.vue'
 
 export const routesAdmin: RouteRecordRaw = {
   path: '/admin',
   name: 'admin',
   component: AdminLayout,
-  beforeEnter: authGuards,
+  beforeEnter: isAdminGuards,
   children: [
     {
       path: 'users',
