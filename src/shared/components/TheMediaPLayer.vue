@@ -28,6 +28,8 @@ watchEffect(() => {
     audio.pause()
     audio.play()
     ListenAllEvents()
+  } else {
+    audio.pause()
   }
 })
 const ListenAllEvents = () => {
