@@ -10,7 +10,7 @@ defineProps<{
   tracks: Track[]
 }>()
 const { trackPlay } = useTrackPlayed()
-const { publishedTrack } = useTracksAdmin()
+const { publishedTrack, deleteTrack } = useTracksAdmin()
 </script>
 
 <template>
@@ -47,7 +47,8 @@ const { publishedTrack } = useTracksAdmin()
 
       <li class="track-name-opacity">
         <button
-          class="button is-danger"
+          class="button"
+          :class="track.published ? 'is-danger' : 'is-success'"
           @click="publishedTrack(track._id, !track.published)">
           <span class="icon is-small">
             <Icon
@@ -57,6 +58,11 @@ const { publishedTrack } = useTracksAdmin()
         <button class="button is-success" @click="trackPlay(track)">
           <span class="icon is-small">
             <Icon icon="mdi:play-circle" />
+          </span>
+        </button>
+        <button class="button is-danger" @click="deleteTrack(track._id)">
+          <span class="icon is-small">
+            <Icon icon="mdi:delete" />
           </span>
         </button>
       </li>

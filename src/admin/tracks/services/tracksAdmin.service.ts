@@ -17,3 +17,8 @@ export const publishedTrackService = async ({
   })
   return data.data
 }
+
+export const deleteTrackService = async (id: string) => {
+  const { data } = await baseAxios.delete(`/tracks/${id}`)
+  return data.data
+}

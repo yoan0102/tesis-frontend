@@ -4,6 +4,7 @@ import { useTracksAdminStore } from '@/admin/stores/useTrackAdminStore'
 import {
   getTracksAll,
   publishedTrackService,
+  deleteTrackService,
 } from '../services/tracksAdmin.service'
 import { toast } from 'vue3-toastify'
 
@@ -24,7 +25,6 @@ export const useTracksAdmin = () => {
   const { mutate: mutatePublishedTrack } = useMutation(publishedTrackService, {
     onSuccess(data) {
       queryClient.invalidateQueries(['tracksAdmin'])
-      console.log({ data })
       if (data.track.published) {
         toast.success('Se publicó correctamente la canción')
       } else {
@@ -36,13 +36,28 @@ export const useTracksAdmin = () => {
     },
   })
 
+  const { mutate: mutateDeleteTrack } = useMutation(deleteTrackService, {
+    onSuccess() {
+      queryClient.invalidateQueries(['tracksAdmin'])
+      toast.success('Se eliminó correctamente la canción')
+    },
+    onError() {
+      toast.error('Ups hubo un error al eliminar las canciones')
+    },
+  })
+
   const publishedTrack = (id: string, isPublished: boolean) => {
     mutatePublishedTrack({ id, isPublished })
+  }
+
+  const deleteTrack = (id: string) => {
+    mutateDeleteTrack(id)
   }
 
   return {
     tracks,
     isLoading,
     publishedTrack,
+    deleteTrack,
   }
 }
