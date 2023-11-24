@@ -1,9 +1,6 @@
 <script lang="ts" setup>
 import TheSidebarAdmin from '../components/TheSidebarAdmin.vue'
 import TheMediaPLayer from '@/shared/components/TheMediaPLayer.vue'
-import { useTrackPlayed } from '@/shared/composables/useTrackPlayed'
-
-useTrackPlayed
 </script>
 
 <template>

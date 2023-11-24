@@ -10,7 +10,7 @@ const { tracks, isLoading } = useGetTracks()
   <div class="track-page">
     <template v-if="tracks.length < 1">
       <h2 class="mt-6 mb-0 is-size-4-mobile is-size-3-tablet is-size-2-desktop">
-        No se encontraron Canciones pudes registrarte y subir una canción
+        No se encontraron Canciones puedes registrarte y subir una canción
       </h2>
       <img src="@/assets/cover-g.jpg" alt="cover" />
     </template>

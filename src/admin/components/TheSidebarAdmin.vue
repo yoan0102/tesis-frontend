@@ -2,9 +2,15 @@
 import { Icon } from '@iconify/vue'
 import { mainMenu } from '../homeLinks'
 import useLogin from '@/users/composables/useLogin'
+import { useTrackPlayed } from '@/shared/composables/useTrackPlayed'
 const { user, logout } = useLogin()
 const onLogout = () => {
   logout()
+}
+
+const { resetTrackPay } = useTrackPlayed()
+const onStopTrack = () => {
+  resetTrackPay()
 }
 </script>
 
@@ -36,6 +42,7 @@ const onLogout = () => {
       target="__blank"
       :to="{ name: 'home' }"
       class="button is-primary"
+      @click="onStopTrack"
       >Vamos a Cantar</RouterLink
     >
   </nav>
