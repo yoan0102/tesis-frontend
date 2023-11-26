@@ -25,7 +25,7 @@ const { user } = useLogin()
     <div class="content-text">
       <div class="small-text">{{ smallText }}</div>
       <h1 class="title">{{ title }}</h1>
-      <h5 class="sub-title is-capitalized">
+      <h5 class="sub-title is-capitalized" v-if="user">
         {{ user.name }}
         <span class="count-tracks" v-if="trackTotal"
           >{{ trackTotal }} {{ trackTotal > 1 ? 'canciones' : 'canción' }}</span

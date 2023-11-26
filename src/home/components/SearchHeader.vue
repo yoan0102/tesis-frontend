@@ -23,7 +23,7 @@ const onChange = () => {
     <div class="content-text">
       <div class="small-text">Búsqueda</div>
       <h1 class="title">Busca tu canción</h1>
-      <h5 class="sub-title is-capitalized">{{ user.name }}</h5>
+      <h5 class="sub-title is-capitalized" v-if="user">{{ user.name }}</h5>
     </div>
   </div>
 </template>
