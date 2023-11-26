@@ -2,11 +2,24 @@
 import BasePlayListBody from '@/shared/components/BasePlayListBody.vue'
 import BasePlayListHeader from '@/shared/components/BasePlayListHeader.vue'
 import { useFavorites } from '@/shared/composables/useFavorites'
-
+import Swal from 'sweetalert2'
 const { favorites, removeFavorites } = useFavorites()
 
 const deleteFavorite = (id: string) => {
-  removeFavorites(id)
+  Swal.fire({
+    title: 'Seguro vas a quitar esta canción de favoritas',
+    icon: 'info',
+    iconColor: '#bf3a28',
+    showCancelButton: true,
+    confirmButtonText: 'Si quiero quitarla ',
+    confirmButtonColor: '#28a3bf',
+    cancelButtonText: 'No, me equivoque',
+    cancelButtonColor: '#bf3a28',
+  }).then((result) => {
+    if (result.isConfirmed) {
+      removeFavorites(id)
+    }
+  })
 }
 </script>
 

@@ -4,6 +4,7 @@ import type { Track } from '@/interfaces/tracks'
 import formatDate from '@/shared/utils/formatDate'
 import { useTrackPlayed } from '@/shared/composables/useTrackPlayed'
 import { useTracksAdmin } from '../composables/useTrackAdmin'
+import Swal from 'sweetalert2'
 
 defineEmits(['on-delete-track'])
 defineProps<{
@@ -11,6 +12,44 @@ defineProps<{
 }>()
 const { trackPlay } = useTrackPlayed()
 const { publishedTrack, deleteTrack } = useTracksAdmin()
+
+const publishTrack = (track: Track) => {
+  Swal.fire({
+    title: track.published
+      ? 'Seguro vas a quitar esta canción de las publicadas'
+      : 'Seguro deseas publicar esta canción',
+    icon: 'info',
+    iconColor: track.published ? '#bf3a28' : '#80bf28',
+    showCancelButton: true,
+    confirmButtonText: track.published
+      ? 'Si quiero quitarla'
+      : 'Si quiero publicarla',
+    confirmButtonColor: track.published ? '#bf3a28' : '#28a3bf',
+    cancelButtonText: 'No, me equivoque',
+    cancelButtonColor: track.published ? '#28a3bf' : '#bf3a28',
+  }).then((result) => {
+    if (result.isConfirmed) {
+      publishedTrack(track._id, !track.published)
+    }
+  })
+}
+
+const removeTrack = (id: string) => {
+  Swal.fire({
+    title: 'Seguro quieres eliminar esta canción',
+    icon: 'info',
+    iconColor: '#bf3a28',
+    showCancelButton: true,
+    confirmButtonText: 'Si quiero quitarla ',
+    confirmButtonColor: '#bf3a28',
+    cancelButtonText: 'No, me equivoque',
+    cancelButtonColor: '#28a3bf',
+  }).then((result) => {
+    if (result.isConfirmed) {
+      deleteTrack(id)
+    }
+  })
+}
 </script>
 
 <template>
@@ -49,7 +88,7 @@ const { publishedTrack, deleteTrack } = useTracksAdmin()
         <button
           class="button"
           :class="track.published ? 'is-danger' : 'is-success'"
-          @click="publishedTrack(track._id, !track.published)">
+          @click="publishTrack(track)">
           <span class="icon is-small">
             <Icon
               :icon="!track.published ? 'mdi:publish' : 'mdi:publish-off'" />
@@ -60,7 +99,7 @@ const { publishedTrack, deleteTrack } = useTracksAdmin()
             <Icon icon="mdi:play-circle" />
           </span>
         </button>
-        <button class="button is-danger" @click="deleteTrack(track._id)">
+        <button class="button is-danger" @click="removeTrack(track._id)">
           <span class="icon is-small">
             <Icon icon="mdi:delete" />
           </span>
