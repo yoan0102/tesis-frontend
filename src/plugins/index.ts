@@ -2,6 +2,7 @@ import { VueQueryPlugin } from '@tanstack/vue-query'
 import Vue3Toastify, { type ToastContainerOptions } from 'vue3-toastify'
 import router from '@/router'
 import pinia from '@/stores'
+import VueSweetalert2 from 'vue-sweetalert2'
 
 import FloatingVue from 'floating-vue'
 
@@ -20,6 +21,7 @@ export function registerPlugins(app: any) {
 
   app
     .use(FloatingVue)
+    .use(VueSweetalert2)
     .use(Vue3Toastify, {
       autoClose: 1500,
     } as ToastContainerOptions)
