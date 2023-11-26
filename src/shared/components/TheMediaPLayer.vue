@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { onUnmounted } from 'vue'
+import { onUnmounted, watch } from 'vue'
 import { Icon } from '@iconify/vue'
 import { useTrackPlayed } from '../composables/useTrackPlayed'
 import { watchEffect, ref } from 'vue'
@@ -23,6 +23,33 @@ const {
   playerPercentage,
 } = useTrackPlayed()
 
+const ListenAllEvents = () => {
+  audio.addEventListener('timeupdate', calculateTime, false)
+  audio.addEventListener('playing', setPlayerStatus, false)
+  audio.addEventListener('play', setPlayerStatus, false)
+  audio.addEventListener('pause', setPlayerStatus, false)
+  audio.addEventListener('ended', setPlayerStatus, false)
+}
+const volume = ref<number>(1)
+const mute = ref<boolean>(false)
+
+const progressChange = (e: any) => {
+  volume.value = e.target.value / 100
+}
+
+const volumenChange = () => {
+  mute.value = !mute.value
+  volume.value = !mute.value ? 1 : 0
+}
+
+const handleProgressPlayer = (e: any) => {
+  playerPercentage.value = e.target.value
+  nextTick(() => {
+    const percentage = (audio.duration * e.target.value) / 100
+    audio.currentTime = percentage
+  })
+}
+
 watchEffect(() => {
   if (track.value?.url) {
     audio.src = track.value?.url
@@ -34,31 +61,16 @@ watchEffect(() => {
   }
 })
 
+watch(volume, (data) => {
+  audio.volume = data
+})
+
 onUnmounted(() => {
   track.value = null
   audio.src = ''
   audio.pause()
   ListenAllEvents()
 })
-const ListenAllEvents = () => {
-  audio.addEventListener('timeupdate', calculateTime, false)
-  audio.addEventListener('playing', setPlayerStatus, false)
-  audio.addEventListener('play', setPlayerStatus, false)
-  audio.addEventListener('pause', setPlayerStatus, false)
-  audio.addEventListener('ended', setPlayerStatus, false)
-}
-
-const progressChange = (e: any) => {
-  audio.volume = e.target.value / 100
-}
-
-const handleProgressPlayer = (e: any) => {
-  playerPercentage.value = e.target.value
-  nextTick(() => {
-    const percentage = (audio.duration * e.target.value) / 100
-    audio.currentTime = percentage
-  })
-}
 </script>
 
 <template>
@@ -124,14 +136,14 @@ const handleProgressPlayer = (e: any) => {
             <Icon icon="mdi:boombox" />
           </button> -->
 
-          <button class="btn-media">
-            <Icon icon="uil-volume" />
+          <button class="btn-media" @click="volumenChange">
+            <Icon :icon="mute ? 'lucide:volume-x' : 'lucide:volume-2'" />
           </button>
           <input
             type="range"
             min="0"
             max="100"
-            value="100"
+            :value="100"
             class="volume-progress"
             @change="progressChange" />
         </div>
