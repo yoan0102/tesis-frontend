@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { onUnmounted } from 'vue'
 import { Icon } from '@iconify/vue'
 import { useTrackPlayed } from '../composables/useTrackPlayed'
 import { watchEffect, ref } from 'vue'
@@ -31,6 +32,13 @@ watchEffect(() => {
   } else {
     audio.pause()
   }
+})
+
+onUnmounted(() => {
+  track.value = null
+  audio.src = ''
+  audio.pause()
+  ListenAllEvents()
 })
 const ListenAllEvents = () => {
   audio.addEventListener('timeupdate', calculateTime, false)
