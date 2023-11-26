@@ -32,8 +32,8 @@ const changeSort = (property: string) => {
   <div class="play-list-body">
     <ul class="play-list-table-header">
       <li @click="changeSort('name')">Nombre</li>
-      <li>álbum</li>
-      <li>fecha incorporación</li>
+      <li class="md-hidden">álbum</li>
+      <li class="md-hidden">fecha incorporación</li>
       <li>
         <Icon icon="file-icons:actionscript" />
         <span class="ml-2">Actions</span>
@@ -53,10 +53,12 @@ const changeSort = (property: string) => {
           </div>
         </div>
       </li>
-      <li class="track-name-opacity">
+      <li class="track-name-opacity md-hidden">
         {{ track.album.name }}
       </li>
-      <li class="track-name-opacity">{{ formatDate(track.createdAt) }}</li>
+      <li class="track-name-opacity md-hidden">
+        {{ formatDate(track.createdAt) }}
+      </li>
 
       <li class="track-name-opacity">
         <button
@@ -126,5 +128,16 @@ const changeSort = (property: string) => {
 .cover-section .cover-info .name-track-details {
   font-size: 80%;
   opacity: 0.7;
+}
+
+@media (width < 768px) {
+  .play-list-table-header,
+  .play-list-rows {
+    display: flex;
+    justify-content: space-between;
+  }
+  .md-hidden {
+    display: none !important;
+  }
 }
 </style>

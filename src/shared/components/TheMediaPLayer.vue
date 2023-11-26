@@ -117,12 +117,12 @@ const handleProgressPlayer = (e: any) => {
       <!--Zona del controles adicionales-->
       <div class="player-audio player-center has-text-grey-light">
         <div class="player-audio-inside">
-          <button class="btn-media">
+          <!-- <button class="btn-media">
             <Icon icon="mdi:playlist-music-outline" />
           </button>
           <button class="btn-media">
             <Icon icon="mdi:boombox" />
-          </button>
+          </button> -->
 
           <button class="btn-media">
             <Icon icon="uil-volume" />
