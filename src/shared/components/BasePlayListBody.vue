@@ -39,6 +39,7 @@ const changeSort = (property: string) => {
         <span class="ml-2">Actions</span>
       </li>
     </ul>
+
     <ul class="play-list-rows" v-for="track in tracks" :key="track._id">
       <li class="track-name">
         <div class="cover-section">

@@ -375,7 +375,7 @@ onUnmounted(() => {
   cursor: pointer;
 }
 
-@media (min-width: 768px) {
+@media (width >= 768px) {
   .media-player {
     .media-player--wrapper {
       .artist {

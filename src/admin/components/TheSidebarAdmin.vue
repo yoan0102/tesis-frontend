@@ -38,24 +38,32 @@ const onStopTrack = () => {
         </router-link>
       </li>
     </ul>
-    <RouterLink
-      target="__blank"
-      :to="{ name: 'home' }"
-      class="button is-primary"
-      @click="onStopTrack"
-      >Vamos a Cantar</RouterLink
-    >
+    <div class="navbar__container bottom">
+      <RouterLink
+        target="__blank"
+        :to="{ name: 'home' }"
+        class="button is-primary"
+        @click="onStopTrack"
+        >Vamos a Cantar</RouterLink
+      >
+    </div>
   </nav>
 </template>
 
 <style scoped lang="scss">
 .navbar {
   position: relative;
+  overflow-x: auto;
+}
+
+.navbar::-webkit-scrollbar {
+  display: none;
+  /* width: 0px; */
 }
 .bottom {
   margin-top: 50px;
-  /* position: absolute; */
-  /* bottom: 50rem; */
+  display: flex;
+  align-items: center;
 }
 /* $color-border: #8e8d8d; */
 

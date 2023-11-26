@@ -93,13 +93,18 @@ const onStopTrack = () => {
 <style scoped lang="scss">
 .navbar {
   position: relative;
+  overflow-x: auto;
+}
+
+.navbar::-webkit-scrollbar {
+  display: none;
+  /* width: 0px; */
 }
 .bottom {
   margin-top: 50px;
-  /* position: absolute; */
-  /* bottom: 50rem; */
+  display: flex;
+  align-items: center;
 }
-/* $color-border: #8e8d8d; */
 
 .link__image--profile {
   border-radius: 50%;

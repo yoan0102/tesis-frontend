@@ -5,7 +5,7 @@ import TheMediaPLayer from '@/shared/components/TheMediaPLayer.vue'
 
 <template>
   <div class="container columns is-clipped m-0">
-    <nav class="navbar is-fixed-top box-shadow-y p-3">
+    <!-- <nav class="navbar is-fixed-top box-shadow-y p-3">
       <div class="navbar-brand">
         <a
           role="button"
@@ -52,7 +52,7 @@ import TheMediaPLayer from '@/shared/components/TheMediaPLayer.vue'
           </div>
         </div>
       </div>
-    </nav>
+    </nav> -->
 
     <TheSidebarAdmin />
 
