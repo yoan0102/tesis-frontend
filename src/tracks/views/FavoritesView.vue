@@ -8,7 +8,7 @@ const { favorites, removeFavorites } = useFavorites()
 const deleteFavorite = (id: string) => {
   Swal.fire({
     title: 'Seguro vas a quitar esta canción de favoritas',
-    icon: 'info',
+    icon: 'warning',
     iconColor: '#bf3a28',
     showCancelButton: true,
     confirmButtonText: 'Si quiero quitarla ',

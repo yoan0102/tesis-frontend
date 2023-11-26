@@ -18,7 +18,7 @@ const publishTrack = (track: Track) => {
     title: track.published
       ? 'Seguro vas a quitar esta canción de las publicadas'
       : 'Seguro deseas publicar esta canción',
-    icon: 'info',
+    icon: 'warning',
     iconColor: track.published ? '#bf3a28' : '#80bf28',
     showCancelButton: true,
     confirmButtonText: track.published
@@ -37,7 +37,7 @@ const publishTrack = (track: Track) => {
 const removeTrack = (id: string) => {
   Swal.fire({
     title: 'Seguro quieres eliminar esta canción',
-    icon: 'info',
+    icon: 'warning',
     iconColor: '#bf3a28',
     showCancelButton: true,
     confirmButtonText: 'Si quiero quitarla ',
