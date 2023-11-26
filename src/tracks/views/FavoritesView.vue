@@ -30,7 +30,9 @@ const deleteFavorite = (id: string) => {
     user-name="Yoan Estrada Blanco"
     title="Canciones que te gustan"
     :trackTotal="favorites.length" />
-  <h1 class="title-mobile is-size-2">Canciones que te gustan</h1>
+  <h1 class="title-mobile is-size-2">
+    <strong>Canciones que te gustan</strong>
+  </h1>
   <template v-if="favorites.length > 0">
     <BasePlayListBody
       :tracks="favorites"
@@ -44,8 +46,9 @@ const deleteFavorite = (id: string) => {
 <style scoped lang="scss">
 .title-mobile {
   text-align: center;
-  margin-top: 2rem;
+  margin-top: 6rem;
 }
+
 @media (width > 1024px) {
   .title-mobile {
     display: none;
